@@ -8,7 +8,6 @@ import 'package:flutter_picker_plus/picker.dart';
 import 'package:flutter_rounded_date_picker/flutter_rounded_date_picker.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-import 'package:image_compress/image_compress.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:badges/badges.dart' as badges;
 
@@ -305,19 +304,6 @@ class UtilWidget {
         ),
       ),
     );
-  }
-
-  static Future<Uint8List?> compressImageForOCR(Uint8List imageBytes) async {
-    const int minKeepSizeKB = 500;
-    double originalSizeKB = imageBytes.lengthInBytes / 1024;
-    if (originalSizeKB < minKeepSizeKB) {
-      return imageBytes;
-    }
-    final result = await ImageCompress.compressImage(
-      imageBytes: imageBytes,
-      maxSizeInKB: 500,
-    );
-    return result;
   }
 
   static Future<void> showBaseImageSourceBottomSheet({

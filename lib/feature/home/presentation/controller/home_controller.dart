@@ -1,9 +1,14 @@
 import 'package:demo_fresher_getx/core/base/base.src.dart';
 import 'package:demo_fresher_getx/feature/home/domain/entities/product_entity.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class HomeController extends BaseGetxController {
   RxList<ProductEntity> productList = <ProductEntity>[].obs;
+
+  TextEditingController inputSearchCtrl = TextEditingController();
+  Rx<FocusNode> fcsSearch = FocusNode().obs;
+  Rx<bool> showFilter = false.obs;
 
   void fetchProducts() async {
     try {
