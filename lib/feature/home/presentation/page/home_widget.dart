@@ -4,36 +4,25 @@ Widget buildHomeBody(HomeController controller) {
   return Column(
     children: [
       _buildFilterStatus(controller),
+      sdsSBWidth16,
       Expanded(
         child: Stack(
           children: [
-            Container(
-              color: const Color(
-                  0xFFF5F5F5), // Màu nền xám nhạt để nổi bật Card trắng
-              child: ListView.builder(
-                padding: const EdgeInsets.all(12),
-                itemCount: 1,
-                itemBuilder: (context, index) {
-                  return _buildProductCard();
-                },
-              ),
-            ),
-
-            /// FILTER TRƯỢT XUỐNG
+            _buildListProduct(controller),
             Obx(
               () => ClipRect(
                 // tránh tràn khi animate
-                child: AnimatedSize(
+                child: AnimatedSlide(
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
-                  alignment: Alignment.topCenter,
-                  child: controller.showFilter.value
-                      ? FilterListProduct.fillter(() {},
-                          widget: Container(
-                            color: AppColors.mainColors,
-                            height: 50,
-                          ))
-                      : const SizedBox(), // height = 0
+                  offset: controller.showFilter.value
+                      ? Offset.zero
+                      : const Offset(0, -1), // trượt lên trên
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 200),
+                    opacity: controller.showFilter.value ? 1 : 0,
+                    child: _buildFilter(controller),
+                  ),
                 ),
               ),
             ),
@@ -42,6 +31,106 @@ Widget buildHomeBody(HomeController controller) {
       ),
     ],
   );
+}
+
+Widget _buildFilter(HomeController controller) {
+  return FilterListProduct.fillter(
+    title: "Danh mục",
+    onCancel: () {
+      controller.categorySelected.value = null;
+      controller.fillerCategory();
+      controller.showFilter.value = false;
+    },
+    onConfirm: () {
+      controller.fillerCategory();
+      controller.showFilter.value = false;
+    },
+    widget: Obx(() {
+      return SingleChildScrollView(
+        child: Wrap(
+          spacing: 13,
+          runSpacing: 13,
+          children: controller.listCategory.map((item) {
+            final selected = controller.categorySelected.value?.id == item.id;
+            return GestureDetector(
+              onTap: () {
+                if (controller.categorySelected.value?.id == item.id) {
+                  controller.categorySelected.value = null; // bỏ chọn
+                } else {
+                  controller.categorySelected.value = item;
+                }
+              },
+              child: Container(
+                height: AppDimens.height35,
+                width: AppDimens.sizeIconBig,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: selected
+                          ? AppColors.mainColors
+                          : AppColors.bgKeyBoardbtn,
+                      width: 0.5),
+                  borderRadius: BorderRadius.circular(AppDimens.radius12),
+                  color: selected ? AppColors.basicWhite : AppColors.grey2,
+                ),
+                child: Center(
+                  child: TextUtils(
+                    text: item.name ?? '',
+                    color:
+                        selected ? AppColors.mainColors : AppColors.basicBlack,
+                    availableStyle: StyleEnum.t14Bold,
+                  ),
+                ),
+              ),
+            );
+          }).toList(),
+        ),
+      );
+    }),
+  );
+}
+
+Widget _buildSkeletonListProduct() {
+  return ListView.builder(
+    padding: const EdgeInsets.all(12),
+    itemCount: 6,
+    itemBuilder: (context, index) {
+      return ProductSkeletonCard();
+    },
+  );
+}
+
+Widget _buildListProduct(HomeController controller) {
+  return Obx(() {
+    if (controller.isShowLoading.value) {
+      return _buildSkeletonListProduct();
+    }
+    return UtilWidget.buildSmartRefresher(
+      refreshController: controller.refreshController,
+      onRefresh: controller.onRefresh,
+      onLoadMore: controller.onLoadMore,
+      enablePullDown: true,
+      enablePullUp: controller.enablePullup.value,
+      shimmer: ProductSkeletonCard(),
+      child: ListView.builder(
+        padding: const EdgeInsets.all(12),
+        physics: const AlwaysScrollableScrollPhysics(),
+        itemCount: controller.productList.length +
+            (controller.isShowLoading.value ? 1 : 0),
+        itemBuilder: (context, index) {
+          return _buildProductCard(
+            controller.productList[index],
+            onTap: () async {
+              await controller.deleteProduct(
+                  id: controller.productList[index].id);
+              Get.back();
+            },
+          ).paddingOnly(
+            bottom: AppDimens.padding8,
+          );
+        },
+      ),
+    );
+  });
 }
 
 Widget _buildFilterStatus(HomeController controller) {
@@ -62,7 +151,9 @@ Widget _buildFilterStatus(HomeController controller) {
             paddingBottom: 0,
             isValidate: false,
             isValidateText: false,
-            onChanged: (_) {},
+            onChanged: (_) {
+              controller.onSearchChanged();
+            },
           ).paddingSymmetric(vertical: AppDimens.padding2),
         ),
         IconButton(
@@ -74,13 +165,6 @@ Widget _buildFilterStatus(HomeController controller) {
               Icons.filter_alt,
               color: AppColors.mainColors,
             )),
-        IconButton(
-            onPressed: () {},
-            icon: Icon(
-              size: AppDimens.sizeIconSpinner,
-              Icons.sort_outlined,
-              color: AppColors.mainColors,
-            )),
       ],
     ).paddingSymmetric(horizontal: AppDimens.padding6),
   );
@@ -88,7 +172,9 @@ Widget _buildFilterStatus(HomeController controller) {
 
 Widget buildFloatingActionButton(HomeController controller) {
   return GestureDetector(
-    onTap: () {},
+    onTap: () {
+      Get.toNamed(AppRouter.routerDetail);
+    },
     child: UtilWidget.baseCard(
       height: AppDimens.sizeIconLargeTB,
       width: AppDimens.sizeIconLargeTB,
@@ -126,7 +212,7 @@ Widget buildIconButton(VoidCallback onTap,
   );
 }
 
-Widget _buildProductCard() {
+Widget _buildProductCard(ProductEntity entity, {VoidCallback? onTap}) {
   return UtilWidget.baseCard(
     borderRadius: AppDimens.borderRadius16,
     boxShadow: [
@@ -145,7 +231,7 @@ Widget _buildProductCard() {
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.network(
-              "https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/42/336623/realme-14-xam-6-638878505488627300-750x500.jpg",
+              entity.image!,
               width: 80,
               height: 80,
               fit: BoxFit.fill,
@@ -171,30 +257,39 @@ Widget _buildProductCard() {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextUtils(
-                        text: "dsvdsv",
+                        text: entity.name ?? '',
                         availableStyle: StyleEnum.t16Bold,
                         maxLine: 1,
                       ),
                       sdsSBHeight4,
                       TextUtils(
-                        text: "dsvdsv",
+                        text: entity.description ?? '',
                         availableStyle: StyleEnum.t13Regular,
                         color: AppColors.grey,
                       ),
                       sdsSBHeight8,
                       TextUtils(
-                        text: "dsvdsv",
+                        text: entity.price.toString(),
                         availableStyle: StyleEnum.t16Bold,
                       ),
                       TextUtils(
-                        text: "Kho: dsvdsv",
+                        text: entity.stock.toString(),
                         availableStyle: StyleEnum.t14Bold,
                       ),
                     ],
                   ),
                 ),
-                buildIconButton(() => Get.offAllNamed(AppRouter.routerLogin),
-                    icon: Icons.delete_outline, isIcon: true)
+                buildIconButton(() {
+                  UtilWidget.showConfirmDialog(
+                    title: LocaleKeys.add_tasks_delete_task.tr,
+                    subtitle: LocaleKeys.add_tasks_confirm_delete_task.tr,
+                    typeAction: AppConst.actionNotification,
+                    onCancel: () {
+                      Get.back();
+                    },
+                    onConfirm: onTap,
+                  );
+                }, icon: Icons.delete_outline, isIcon: true)
               ],
             ),
           ),

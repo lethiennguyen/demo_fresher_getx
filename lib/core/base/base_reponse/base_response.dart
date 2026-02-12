@@ -32,7 +32,6 @@ class ApiResponse<T> {
   final String? message;
   final String? errorKey;
   final int? statusCode;
-  final PagingModel? paging;
 
   bool get isSuccess => errorKey == null;
 
@@ -41,7 +40,6 @@ class ApiResponse<T> {
     this.message,
     this.errorKey,
     this.statusCode,
-    this.paging,
   });
 
   factory ApiResponse.fromJson(
@@ -55,28 +53,38 @@ class ApiResponse<T> {
       message: json['message'],
       errorKey: json['error_key'],
       statusCode: json['status_code'],
-      paging:
-          json['paging'] != null ? PagingModel.fromJson(json['paging']) : null,
     );
   }
 }
 
-class PagingModel {
-  final int? page;
-  final int? limit;
-  final int? count;
+class ApiResponseList<T> {
+  final List<T>? data;
+  final String? message;
+  final String? errorKey;
+  final int? statusCode;
 
-  PagingModel({
-    this.page,
-    this.limit,
-    this.count,
+  bool get isSuccess => errorKey == null;
+
+  ApiResponseList({
+    this.data,
+    this.message,
+    this.errorKey,
+    this.statusCode,
   });
 
-  factory PagingModel.fromJson(Map<String, dynamic> json) {
-    return PagingModel(
-      page: json['page'],
-      limit: json['limit'],
-      count: json['count'],
+  factory ApiResponseList.fromJson(
+    Map<String, dynamic> json, {
+    required T Function(dynamic x) func,
+  }) {
+    return ApiResponseList(
+      data: json['data'] != null
+          ? List<T>.from(
+              (json['data'] as List).map((x) => func(x)),
+            )
+          : [],
+      message: json['message'],
+      errorKey: json['error_key'],
+      statusCode: json['status_code'],
     );
   }
 }

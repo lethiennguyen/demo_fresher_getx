@@ -43,7 +43,6 @@ dependencies:
   screenshot: ^3.0.0
   image_gallery_saver_plus: ^4.0.1
   image_picker: ^1.1.2
-  image_cropper: 5.0.1
   envied: ^1.1.1
   path_provider: ^2.1.5
   hive: ^2.2.3
@@ -65,6 +64,7 @@ dependencies:
   flutter_rounded_date_picker: ^3.0.4
   month_picker_dialog: 6.0.3
   skeletonizer: ^1.4.3
+  shimmer: ^3.0.0
   syncfusion_flutter_charts: ^29.1.38
   sliding_up_panel: ^2.0.0+1
   intl: 0.19.0
@@ -74,6 +74,7 @@ dependencies:
   confetti: ^0.8.0
   url_launcher: ^6.3.2
   badges: ^3.1.2
+  dotted_border: ^2.1.0
 
 dev_dependencies:
   flutter_test:

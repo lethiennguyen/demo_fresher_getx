@@ -177,7 +177,7 @@ class BaseApi {
     if (token.isNotEmpty) {
       return {
         "Content-Type": "application/json",
-        "Authorization": token,
+        "Authorization": "Bearer $token",
       };
     }
 

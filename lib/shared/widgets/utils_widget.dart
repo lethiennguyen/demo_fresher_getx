@@ -120,6 +120,129 @@ class UtilWidget {
     );
   }
 
+  static void showSnackBar({required String title, required String message}) {
+    Get.snackbar(
+      title,
+      message,
+      snackPosition: SnackPosition.TOP,
+      backgroundColor: AppColors.colorWhite,
+      borderRadius: 8,
+      margin: const EdgeInsets.all(12),
+      padding: const EdgeInsets.all(12),
+      borderColor: AppColors.grey,
+      borderWidth: 1,
+      icon: Icon(Icons.emoji_emotions, color: AppColors.mainColors),
+      titleText: TextUtils(
+        text: title,
+        fontWeight: FontWeight.bold,
+        size: AppDimens.sizeTextMediumTb,
+        color: AppColors.mainColors,
+      ),
+      messageText: TextUtils(
+        text: message,
+        fontWeight: FontWeight.normal,
+        size: AppDimens.sizeTextSmall,
+        color: AppColors.colorBlack,
+      ),
+    );
+  }
+
+  static Future<void> _showDialog(
+    Widget widget, {
+    bool barrierDismissible = false,
+  }) {
+    return Get.dialog(
+      PopScope(
+        canPop: barrierDismissible,
+        child: widget,
+      ),
+      barrierDismissible: barrierDismissible,
+    );
+  }
+
+  static Future<void>? showConfirmDialog({
+    required String title,
+    String? subtitle,
+    String? confirmTitle,
+    String? cancelTitle,
+    String typeAction = AppConst.actionFail,
+    VoidCallback? onConfirm,
+    VoidCallback? onCancel,
+    bool barrierDismissible = false,
+  }) {
+    return _showDialog(
+      Dialog(
+        elevation: 0,
+        backgroundColor: Colors.white,
+        insetPadding: const EdgeInsets.symmetric(
+          vertical: AppDimens.defaultPadding,
+          horizontal: AppDimens.padding24,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppDimens.radius20),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (title.isNotEmpty)
+              TextUtils(
+                text: title,
+                maxLine: 3,
+                availableStyle: StyleEnum.t18Bold,
+                textAlign: TextAlign.center,
+              ),
+            UtilWidget.sizedBox10,
+            if (subtitle != null)
+              Container(
+                padding: const EdgeInsets.only(
+                  bottom: AppDimens.padding24,
+                ),
+                constraints: const BoxConstraints(maxHeight: 200),
+                child: SingleChildScrollView(
+                  child: TextUtils(
+                    text: subtitle,
+                    availableStyle: StyleEnum.t16Regular,
+                    textAlign: TextAlign.center,
+                    color: AppColors.textColorGrey,
+                    maxLine: 20,
+                  ),
+                ),
+              ),
+            Row(
+              children: [
+                Expanded(
+                  child: UtilWidget.buildBackButton(
+                    title: cancelTitle ?? LocaleKeys.dialog_cancel.tr,
+                    borderRadius: AppDimens.radius10,
+                    textColor: AppColors.basicBlack,
+                    backgroundColor: AppColors.dividerColor,
+                    onPressed: () {
+                      onCancel?.call();
+                    },
+                  ),
+                ),
+                UtilWidget.sizedBoxWidth20,
+                Expanded(
+                  child: UtilWidget.buildSolidButton(
+                    borderRadius: AppDimens.radius10,
+                    colorText: AppCollection.mapColorBorderSnackBar[typeAction],
+                    backgroundColor:
+                        AppCollection.mapColorBackgroundSnackBar[typeAction],
+                    title: confirmTitle ?? LocaleKeys.dialog_confirm.tr,
+                    onPressed: () {
+                      onConfirm?.call();
+                    },
+                  ),
+                ),
+              ],
+            )
+          ],
+        ).paddingAll(AppDimens.padding16),
+      ),
+      barrierDismissible: barrierDismissible,
+    );
+  }
+
   ///CardBase
   static Widget buildCardBase(
     Widget child, {
@@ -875,6 +998,29 @@ class UtilWidget {
           ),
         ],
       ),
+    );
+  }
+
+  /// Widget cài đặt việc refresh page
+  static Widget buildSmartRefresher(
+      {required RefreshController refreshController,
+      required Widget child,
+      ScrollController? scrollController,
+      Function()? onRefresh,
+      Function()? onLoadMore,
+      bool enablePullUp = false,
+      bool enablePullDown = false,
+      Widget? shimmer}) {
+    return SmartRefresher(
+      enablePullDown: enablePullDown,
+      enablePullUp: enablePullUp,
+      scrollController: scrollController,
+      header: const MaterialClassicHeader(),
+      controller: refreshController,
+      onRefresh: onRefresh,
+      onLoading: onLoadMore,
+      footer: buildSmartRefresherCustomFooter(customLoading: shimmer),
+      child: child,
     );
   }
 

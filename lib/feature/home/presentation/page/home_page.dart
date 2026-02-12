@@ -9,6 +9,7 @@ import '../../../../generated/locales.g.dart';
 import '../../../../lib.dart';
 import '../../../../shared/widgets/input_form/input.src.dart';
 import '../component/filter_list_product.dart';
+import '../component/skeleton.dart';
 import '../controller/home_controller.dart';
 
 part 'home_widget.dart';

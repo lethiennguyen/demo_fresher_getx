@@ -1,6 +1,6 @@
 class ListProductRequestEntity {
   final int? categoryId;
-  final int? keyword;
+  final String? keyword;
   final int? page;
   final int? pageSize;
   ListProductRequestEntity(

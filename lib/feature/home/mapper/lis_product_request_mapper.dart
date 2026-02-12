@@ -9,8 +9,7 @@ class ListProductRequestMapper
   ListProductRequestEntity mapToEntity(ListProductRequestModel? data) {
     return ListProductRequestEntity(
       categoryId: data?.categoryId,
-      // Chuyển String sang int (nếu cần thiết theo đúng khai báo Entity của bạn)
-      keyword: data?.keyword != null ? int.tryParse(data!.keyword!) : null,
+      keyword: data?.keyword,
       page: data?.page,
       pageSize: data?.pageSize,
     );
@@ -20,8 +19,7 @@ class ListProductRequestMapper
   ListProductRequestModel mapToData(ListProductRequestEntity entity) {
     return ListProductRequestModel(
       categoryId: entity.categoryId,
-      // Chuyển int từ Entity sang String để gửi lên API
-      keyword: entity.keyword?.toString(),
+      keyword: entity.keyword,
       page: entity.page,
       pageSize: entity.pageSize,
     );
