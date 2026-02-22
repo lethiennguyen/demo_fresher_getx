@@ -1,4 +1,8 @@
 import '../../../../core/base/base_reponse/base_response.dart';
 import '../domain.src.dart';
 
-abstract class DetailProductRepository {}
+abstract class DetailProductRepository {
+  Future<ApiResponse> create(ProductRequestEntity entity);
+
+  Future<ApiResponse> updateProject(ProductRequestEntity entity);
+}

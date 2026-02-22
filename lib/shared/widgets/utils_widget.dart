@@ -1643,6 +1643,9 @@ class UtilWidget {
     required String Function(T) itemTitleMapper,
     required Function(T) onItemSelected,
     required VoidCallback onConfirm,
+    bool isAddItem = false,
+    VoidCallback? onTap,
+    String addItem = "Thêm mới",
   }) {
     return UtilWidget.baseBottomSheet(
       title: title,
@@ -1667,6 +1670,21 @@ class UtilWidget {
               dividerBase02,
             ];
           }),
+          sdsSBHeight20,
+          if (isAddItem)
+            UtilWidget.baseCard(
+              onTap: onTap,
+              height: AppDimens.height45,
+              borderRadius: 12,
+              border: Border.all(color: AppColors.mainColors, width: 1),
+              child: Center(
+                child: TextUtils(
+                  text: addItem,
+                  availableStyle: StyleEnum.t16Bold,
+                  color: AppColors.mainColors,
+                ),
+              ),
+            ),
           sdsSBHeight20,
           ButtonUtils.buildButton(
             LocaleKeys.my_task_confirm.tr,

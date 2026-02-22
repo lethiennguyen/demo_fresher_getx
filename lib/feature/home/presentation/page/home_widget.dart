@@ -119,7 +119,11 @@ Widget _buildListProduct(HomeController controller) {
         itemBuilder: (context, index) {
           return _buildProductCard(
             controller.productList[index],
-            onTap: () async {
+            onTap: () {
+              Get.toNamed(AppRouter.routerDetail,
+                  arguments: controller.productList[index]);
+            },
+            onDelete: () async {
               await controller.deleteProduct(
                   id: controller.productList[index].id);
               Get.back();
@@ -212,7 +216,8 @@ Widget buildIconButton(VoidCallback onTap,
   );
 }
 
-Widget _buildProductCard(ProductEntity entity, {VoidCallback? onTap}) {
+Widget _buildProductCard(ProductEntity entity,
+    {VoidCallback? onTap, VoidCallback? onDelete}) {
   return UtilWidget.baseCard(
     borderRadius: AppDimens.borderRadius16,
     boxShadow: [
@@ -223,6 +228,7 @@ Widget _buildProductCard(ProductEntity entity, {VoidCallback? onTap}) {
         offset: const Offset(0, 2),
       ),
     ],
+    onTap: onTap,
     child: Padding(
       padding: const EdgeInsets.all(10),
       child: Row(
@@ -287,7 +293,7 @@ Widget _buildProductCard(ProductEntity entity, {VoidCallback? onTap}) {
                     onCancel: () {
                       Get.back();
                     },
-                    onConfirm: onTap,
+                    onConfirm: onDelete,
                   );
                 }, icon: Icons.delete_outline, isIcon: true)
               ],

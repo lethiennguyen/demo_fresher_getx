@@ -1,21 +1,26 @@
 part of 'detail_product_page.dart';
 
 Widget _buildBody(DetailProductController controller) {
-  return Column(
-    children: [
-      buildImage(controller),
-      sdsSBHeight16,
-      buildNameProduct(controller),
-      sdsSBHeight16,
-      buildCodeProduct(controller),
-      sdsSBHeight16,
-      buildPriceProduct(controller),
-      sdsSBHeight16,
-      buildStockProduct(controller),
-      sdsSBHeight16,
-      buildCategoryProduct(controller),
-    ],
-  ).paddingAll(AppDimens.padding16);
+  return SingleChildScrollView(
+    child: Form(
+      key: controller.formKey,
+      child: Column(
+        children: [
+          buildImage(controller),
+          sdsSBHeight16,
+          buildNameProduct(controller),
+          sdsSBHeight16,
+          buildCodeProduct(controller),
+          sdsSBHeight16,
+          buildPriceProduct(controller),
+          sdsSBHeight16,
+          buildStockProduct(controller),
+          sdsSBHeight16,
+          buildCategoryProduct(controller),
+        ],
+      ).paddingAll(AppDimens.padding16),
+    ),
+  );
 }
 
 Widget buildImagePicker(DetailProductController controller) {
@@ -50,17 +55,17 @@ Widget buildImagePicker(DetailProductController controller) {
   );
 }
 
-Widget buildImage() {
+Widget buildImage(DetailProductController controller) {
   return Container(
     width: double.infinity,
-    height: 150,
+    height: 200,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(12),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        buildImagePicker(Get.find()),
+        buildImagePicker(controller),
       ],
     ),
   );
@@ -68,7 +73,7 @@ Widget buildImage() {
 
 Widget buildNameProduct(DetailProductController controller) {
   return SDSInputWithLabel.buildInputData(
-    validator: null,
+    validator: controller.validateName,
     heightInput: AppDimens.height45,
     textEditingController: controller.inputNameCtrl,
     currentNode: controller.fcsName,
@@ -76,15 +81,15 @@ Widget buildNameProduct(DetailProductController controller) {
     title: "Tên sản phẩm",
     borderRadius: AppDimens.borderRadiusBig,
     paddingBottom: 0,
-    isValidate: false,
-    isValidateText: false,
+    isValidate: true,
+    isValidateText: true,
     onChanged: (_) {},
   ).paddingSymmetric(vertical: AppDimens.padding2);
 }
 
 Widget buildCodeProduct(DetailProductController controller) {
   return SDSInputWithLabel.buildInputData(
-    validator: null,
+    validator: controller.validateCode,
     heightInput: AppDimens.height45,
     textEditingController: controller.inputCodeCtrl,
     currentNode: controller.fcsCode,
@@ -100,7 +105,7 @@ Widget buildCodeProduct(DetailProductController controller) {
 
 Widget buildPriceProduct(DetailProductController controller) {
   return SDSInputWithLabel.buildInputData(
-    validator: null,
+    validator: controller.validatePrice,
     heightInput: AppDimens.height45,
     textEditingController: controller.inputPriceCtrl,
     currentNode: controller.fcsPrice,
@@ -116,12 +121,12 @@ Widget buildPriceProduct(DetailProductController controller) {
 
 Widget buildStockProduct(DetailProductController controller) {
   return SDSInputWithLabel.buildInputData(
-    validator: null,
+    validator: controller.validateStock,
     heightInput: AppDimens.height45,
     textEditingController: controller.inputStockCtrl,
     currentNode: controller.fcsStock,
-    title: LocaleKeys.task_search_task.tr,
-    hintText: LocaleKeys.task_search_task.tr,
+    title: "Số lượng sản phẩm",
+    hintText: "Số lượng sản phẩm",
     borderRadius: AppDimens.borderRadiusBig,
     paddingBottom: 0,
     isValidate: false,
@@ -131,19 +136,59 @@ Widget buildStockProduct(DetailProductController controller) {
 }
 
 Widget buildCategoryProduct(DetailProductController controller) {
-  return SDSInputWithLabel.buildInputData(
-    validator: null,
-    heightInput: AppDimens.height45,
-    textEditingController: controller.inputCategoryCtrl,
-    currentNode: controller.fcsCategory,
-    title: LocaleKeys.task_search_task.tr,
-    hintText: LocaleKeys.task_search_task.tr,
-    borderRadius: AppDimens.borderRadiusBig,
-    paddingBottom: 0,
-    isValidate: false,
-    isValidateText: true,
-    onChanged: (_) {},
-  ).paddingSymmetric(vertical: AppDimens.padding2);
+  return Obx(() {
+    final selectedValue = controller.selectedCategory.value;
+    final Color color =
+        selectedValue == null ? AppColors.basicGrey2 : AppColors.mainColors;
+    final Color textColor =
+        selectedValue == null ? AppColors.basicBlack : AppColors.mainColors;
+    return UtilWidget.baseDropDownBottomSheetFilter(
+        height: AppDimens.height45,
+        title: "Danh mục sản phẩm",
+        borderColor: color,
+        iconColor: textColor,
+        textColor: textColor,
+        backgroundColor:
+            selectedValue == null ? AppColors.basicGrey5 : AppColors.basicWhite,
+        value: selectedValue?.name ?? "Danh mục",
+        onTap: () async {
+          final result = await Get.bottomSheet(
+            buildBottomSheetCategoryProduct(controller),
+            isScrollControlled: true,
+          );
+          if (result == null) {
+            controller.selectedCategory.value;
+          }
+          return result;
+        });
+  });
+}
+
+Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
+  return Obx(
+    () => UtilWidget.buildSelectionBottomSheet(
+      title: "Chọn danh mục",
+      items: controller.listCategory,
+      isAddItem: true,
+      addItem: "Thêm danh mục +",
+      onTap: () {
+        ShowPopup.showDiaLogTextField(
+          "Thêm Danh mục",
+          "Lưu",
+          () {},
+          hintText: "Danh mục mới",
+          controller.inputCategoryCtrl,
+          controller.fcsCategory,
+        );
+      },
+      checkSelected: (item) => controller.selectedCategory.value == item,
+      itemTitleMapper: (item) => item.name ?? '',
+      onItemSelected: (item) => controller.selectedCategory.value = item,
+      onConfirm: () {
+        Get.back();
+      },
+    ),
+  );
 }
 
 Widget buildBottomBar(DetailProductController controller) {

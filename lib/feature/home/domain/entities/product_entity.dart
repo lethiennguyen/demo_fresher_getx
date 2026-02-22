@@ -1,3 +1,5 @@
+import '../domain.src.dart';
+
 class CategoryEntity {
   final int? id;
   final int? status;
@@ -39,7 +41,7 @@ class ProductEntity {
   final String? code;
   final double? price;
   final int? stock;
-  final CategoryEntity? category;
+  final CategoriesEntity? category;
   final String? description;
   final String? image;
 
@@ -66,7 +68,7 @@ class ProductEntity {
     String? code,
     double? price,
     int? stock,
-    CategoryEntity? category,
+    CategoriesEntity? category,
     String? description,
     String? image,
   }) {

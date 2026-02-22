@@ -1,9 +1,11 @@
+import 'package:demo_fresher_getx/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/values/strings.dart';
 import '../../lib.dart';
+import 'input_form/input.src.dart';
 
 class ShowPopup {
   static int _numDialog = 0;
@@ -109,6 +111,82 @@ class ShowPopup {
                 textColor: Colors.white,
                 fontSize: 14,
                 fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
+        ),
+      ),
+      isActiveBack,
+    );
+  }
+
+  static void showDiaLogTextField(
+    String title,
+    String buttonText,
+    VoidCallback onComfirm,
+    TextEditingController controller,
+    Rx<FocusNode> focusNode, {
+    bool isActiveBack = true,
+    String? hintText,
+    String? Function(String?)? validator,
+  }) {
+    _showDialog(
+      Dialog(
+        backgroundColor: AppColors.colorWhite,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TextUtils(
+                text: title,
+                color: AppColors.mainColors,
+                fontWeight: FontWeight.w700,
+                size: AppDimens.sizeTextMediumTb,
+              ),
+              sdsSBHeight20,
+              SDSInputWithLabel.buildInputData(
+                validator: validator,
+                heightInput: AppDimens.height45,
+                textEditingController: controller,
+                currentNode: focusNode,
+                hintText: hintText ?? "",
+                borderRadius: AppDimens.borderRadiusBig,
+                paddingBottom: 0,
+                isValidate: true,
+                isValidateText: true,
+                onChanged: (_) {},
+              ),
+              sdsSBHeight20,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  _baseButton(
+                    () {
+                      Get.back();
+                    },
+                    LocaleKeys.button_cancel.tr,
+                    color: const Color(0xffF24E1E),
+                    textColor: Colors.white,
+                    witdh: 100,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  sdsSBHeight20,
+                  _baseButton(
+                    onComfirm ??
+                        () {
+                          Get.back();
+                        },
+                    buttonText,
+                    color: const Color(0xffF24E1E),
+                    textColor: Colors.white,
+                    witdh: 100,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ],
               ),
             ],
           ),

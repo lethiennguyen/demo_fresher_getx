@@ -1,3 +1,4 @@
+import 'package:demo_fresher_getx/feature/home/domain/domain.src.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,6 +7,8 @@ import '../../../../core/base/widget_base/base_get_page.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../../lib.dart';
 import '../../../../shared/widgets/input_form/input.src.dart';
+import '../../../../shared/widgets/show_popup.dart';
+import '../component/component.src.dart';
 import '../controller/controller.src.dart';
 
 part 'detail_product_widget.dart';
@@ -16,16 +19,22 @@ class DetailProductPage extends BaseGetPage<DetailProductController> {
 
   @override
   Widget buildPage(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.basicWhite,
-      appBar: UtilWidget.buildAppBar(
-        "Tạo sản phẩm",
-        centerTitle: true,
-        backButtonColor: AppColors.basicBlack,
-        textColor: AppColors.mainColors,
+    return Obx(
+      () => Scaffold(
+        backgroundColor: AppColors.basicWhite,
+        appBar: UtilWidget.buildAppBar(
+          "Tạo sản phẩm",
+          centerTitle: true,
+          backButtonColor: AppColors.basicBlack,
+          textColor: AppColors.mainColors,
+        ),
+        body: controller.isDetail.value
+            ? buildProductDetailBody(controller)
+            : _buildBody(controller),
+        bottomNavigationBar: controller.isDetail.value
+            ? buildBottomBarDetail(controller)
+            : buildBottomBar(controller),
       ),
-      body: _buildBody(controller),
-      bottomNavigationBar: buildBottomBar(controller),
     );
   }
 }

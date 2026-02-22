@@ -57,6 +57,13 @@ class LoginController extends BaseGetxController with WidgetsBindingObserver {
       final box = Hive.box(HiveBoxNames.auth);
       box.put(HiveKeys.token, response.data?.accessToken);
       Get.offAllNamed(AppRouter.routerHome);
+    } catch (e) {
+      ShowPopup.showDiaLogNotifyton(
+        LocaleKeys.notification_title,
+        "Đăng nhập thất bại",
+        LocaleKeys.button_confirm,
+        null,
+      );
     } finally {
       isShowLoading.value = false;
     }

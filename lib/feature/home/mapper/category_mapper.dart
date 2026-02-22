@@ -5,11 +5,11 @@ import '../data/model/category_response.dart';
 import '../domain/entities/entity_category.dart';
 import '../domain/entities/product_entity.dart';
 
-class CategoryMapper extends BaseDataMapper<Category, CategoryEntity>
+class CategoryMapper extends BaseDataMapper<Category, CategoriesEntity>
     with DataMapperMixin {
   @override
-  CategoryEntity mapToEntity(Category? data) {
-    return CategoryEntity(
+  CategoriesEntity mapToEntity(Category? data) {
+    return CategoriesEntity(
       id: data?.id,
       status: data?.status,
       createdAt: data?.createdAt,
@@ -19,7 +19,7 @@ class CategoryMapper extends BaseDataMapper<Category, CategoryEntity>
   }
 
   @override
-  Category mapToData(CategoryEntity entity) {
+  Category mapToData(CategoriesEntity entity) {
     return Category(
       id: entity.id,
       status: entity.status,
