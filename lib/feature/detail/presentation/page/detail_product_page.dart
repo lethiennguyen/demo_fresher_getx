@@ -23,14 +23,17 @@ class DetailProductPage extends BaseGetPage<DetailProductController> {
       () => Scaffold(
         backgroundColor: AppColors.basicWhite,
         appBar: UtilWidget.buildAppBar(
-          "Tạo sản phẩm",
+          controller.title,
           centerTitle: true,
           backButtonColor: AppColors.basicBlack,
           textColor: AppColors.mainColors,
+          funcLeading: controller.onBack,
         ),
-        body: controller.isDetail.value
-            ? buildProductDetailBody(controller)
-            : _buildBody(controller),
+        body: Obx(
+          () => controller.isDetail.value
+              ? buildProductDetailBody(controller)
+              : _buildBody(controller),
+        ),
         bottomNavigationBar: controller.isDetail.value
             ? buildBottomBarDetail(controller)
             : buildBottomBar(controller),

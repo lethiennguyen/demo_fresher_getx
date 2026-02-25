@@ -19,7 +19,7 @@ class ProductItemResponseModel {
   final DateTime? updatedAt;
   final String? name;
   final String? code;
-  final double? price;
+  final dynamic price;
   final int? stock;
   final Category? category;
   final String? description;

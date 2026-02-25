@@ -25,6 +25,12 @@ class BaseConnectAPI {
       ..receiveTimeout = AppConst.requestTimeOut;
   }
 
+  void setOnErrorListener(Function(Object error) onErrorCallBack) {
+    this.onErrorCallBack = onErrorCallBack;
+  }
+
+  late Function(Object error) onErrorCallBack;
+
   Future<dynamic> sendRequest(
     String action,
     RequestMethod requestMethod, {

@@ -1,10 +1,10 @@
 import 'package:demo_fresher_getx/core/base/base.src.dart';
 import 'package:demo_fresher_getx/core/base/base_repository_clean/base_repository.dart';
-import 'package:demo_fresher_getx/feature/home/domain/entities/delete_product_entity.dart';
-import 'package:demo_fresher_getx/feature/home/domain/entities/list_product_request.dart';
+import 'package:demo_fresher_getx/feature/home/domain/domain.src.dart';
 
 import '../../../../core/base/base_repository_clean/base_api.dart';
 import '../../../../lib.dart';
+import '../../../detail/domain/domain.src.dart';
 import '../../mapper/mapper.src.dart';
 import '../data.src.dart';
 
@@ -51,5 +51,29 @@ class HomeDataSourcesImpl extends BaseRepositoryCl implements HomeDataSources {
       isToken: true,
     );
     return ApiResponse<bool>.fromJson(res.data);
+  }
+
+  @override
+  Future<ApiResponse<bool>> deleteCategory(DeleteCategoryEntity entity) async {
+    final res = await baseCallApi(
+      "${ApiUrl.categories}/${entity.id}",
+      EnumRequestMethod.DELETE,
+      isToken: true,
+    );
+    return ApiResponse<bool>.fromJson(res.data);
+  }
+
+  @override
+  Future<ApiResponse> updateCategory(CategoryRequestEntity entity) async {
+    final res = await baseCallApi(
+      "${ApiUrl.categories}/${entity.id}",
+      EnumRequestMethod.PUT,
+      jsonMap: mapper.categoryRequestMapper.mapToData(entity).toJson(),
+      isQueryParametersPost: false,
+      isToken: true,
+    );
+    return ApiResponse.fromJson(
+      res.data,
+    );
   }
 }

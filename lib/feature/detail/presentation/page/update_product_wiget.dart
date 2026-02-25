@@ -17,6 +17,8 @@ Widget _buildBody(DetailProductController controller) {
           buildStockProduct(controller),
           sdsSBHeight16,
           buildCategoryProduct(controller),
+          sdsSBHeight16,
+          buildDescriptionProduct(controller),
         ],
       ).paddingAll(AppDimens.padding16),
     ),
@@ -30,28 +32,55 @@ Widget buildImagePicker(DetailProductController controller) {
     dashPattern: const [6, 4],
     borderType: BorderType.RRect,
     radius: const Radius.circular(12),
-    child: Container(
-        width: double.infinity,
-        height: 150,
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            CircleAvatar(
-              radius: 25,
-              backgroundColor: Colors.blue,
-              child: Icon(Icons.image, color: Colors.white),
-            ),
-            SizedBox(height: 10),
-            Text(
-              "Add photos",
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
-        )),
+    child: GestureDetector(
+      onTap: () {
+        controller.upImage();
+      },
+      child: controller.isImage.value
+          ? Stack(
+              children: [
+                buildDetailImage(controller.url.value),
+
+                /// Loading overlay
+                if (controller.isUploadingImage.value)
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppColors.basicWhite,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: AppColors.mainColors,
+                        ),
+                      ),
+                    ),
+                  )
+              ],
+            )
+          : Container(
+              width: double.infinity,
+              height: 150,
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  CircleAvatar(
+                    radius: 25,
+                    backgroundColor: Colors.blue,
+                    child: Icon(Icons.image, color: Colors.white),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Thêm ảnh",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              )),
+    ),
   );
 }
 
@@ -135,6 +164,14 @@ Widget buildStockProduct(DetailProductController controller) {
   ).paddingSymmetric(vertical: AppDimens.padding2);
 }
 
+Widget buildDescriptionProduct(DetailProductController controller) {
+  return IconLeadingTextField(
+    label: "Mô tả",
+    controller: controller.descriptionCtrl,
+    backgroundColor: AppColors.basicWhite,
+  );
+}
+
 Widget buildCategoryProduct(DetailProductController controller) {
   return Obx(() {
     final selectedValue = controller.selectedCategory.value;
@@ -166,27 +203,32 @@ Widget buildCategoryProduct(DetailProductController controller) {
 
 Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
   return Obx(
-    () => UtilWidget.buildSelectionBottomSheet(
-      title: "Chọn danh mục",
-      items: controller.listCategory,
-      isAddItem: true,
-      addItem: "Thêm danh mục +",
-      onTap: () {
-        ShowPopup.showDiaLogTextField(
-          "Thêm Danh mục",
-          "Lưu",
-          () {},
-          hintText: "Danh mục mới",
-          controller.inputCategoryCtrl,
-          controller.fcsCategory,
-        );
-      },
-      checkSelected: (item) => controller.selectedCategory.value == item,
-      itemTitleMapper: (item) => item.name ?? '',
-      onItemSelected: (item) => controller.selectedCategory.value = item,
-      onConfirm: () {
-        Get.back();
-      },
+    () => SingleChildScrollView(
+      child: UtilWidget.buildSelectionBottomSheet(
+        title: "Chọn danh mục",
+        items: controller.listCategory,
+        isAddItem: true,
+        addItem: "Thêm danh mục +",
+        onTap: () {
+          ShowPopup.showDiaLogTextField(
+            "Thêm Danh mục",
+            "Lưu",
+            onConfirm: () {
+              controller.createCategory();
+            },
+            hintText: "Danh mục mới",
+            isActiveBack: true,
+            controller.inputCategoryCtrl,
+            controller.fcsCategory,
+          );
+        },
+        checkSelected: (item) => controller.selectedCategory.value == item,
+        itemTitleMapper: (item) => item.name ?? '',
+        onItemSelected: (item) => controller.selectedCategory.value = item,
+        onConfirm: () {
+          Get.back();
+        },
+      ),
     ),
   );
 }
@@ -196,7 +238,7 @@ Widget buildBottomBar(DetailProductController controller) {
     decoration: BoxDecoration(
       border: Border(
         top: BorderSide(
-          color: AppColors.textColorGrey,
+          color: AppColors.grey,
           width: 0.5,
         ),
       ),
@@ -209,7 +251,13 @@ Widget buildBottomBar(DetailProductController controller) {
         ButtonUtils.buildButton(
           width: 120,
           "Lưu",
-          () {},
+          () {
+            if (controller.isEdit.value) {
+              controller.upDateProduct();
+            } else {
+              controller.createProduct();
+            }
+          },
           backgroundColor: AppColors.mainColors,
           showLoading: true,
           colorText: AppColors.basicWhite,

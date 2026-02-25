@@ -44,11 +44,11 @@ class ProductMapper
       updatedAt: data?.updatedAt,
       name: data?.name,
       code: data?.code,
-      price: data?.price,
-      stock: data?.stock,
-      category: _categoryMapper.mapToEntity(data?.category),
-      description: data?.description,
-      image: data?.image,
+      price: double.parse(data!.price.toString()),
+      stock: data.stock,
+      category: _categoryMapper.mapToEntity(data.category),
+      description: data.description,
+      image: data.image,
     );
   }
 

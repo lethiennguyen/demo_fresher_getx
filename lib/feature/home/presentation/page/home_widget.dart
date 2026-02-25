@@ -34,41 +34,61 @@ Widget buildHomeBody(HomeController controller) {
 }
 
 Widget _buildFilter(HomeController controller) {
-  return FilterListProduct.fillter(
-    title: "Danh mục",
-    onCancel: () {
-      controller.categorySelected.value = null;
-      controller.fillerCategory();
-      controller.showFilter.value = false;
-    },
-    onConfirm: () {
-      controller.fillerCategory();
-      controller.showFilter.value = false;
-    },
-    widget: Obx(() {
-      return SingleChildScrollView(
-        child: Wrap(
-          spacing: 13,
-          runSpacing: 13,
-          children: controller.listCategory.map((item) {
+  return Obx(
+    () => FilterListProduct.fillter(
+      title: "Danh mục",
+      edit: "Chỉnh sửa",
+      onEdit: () {
+        controller.editCategory();
+      },
+      body: _buildBodyFilter(controller),
+      widgetConfirm: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (controller.errorCategory.value != '')
+            TextUtils(
+              text: controller.errorCategory.value,
+              color: AppColors.overdueColor,
+            ),
+          sdsSBHeight16,
+          controller.isEditCategory.value
+              ? _buildButtonEditCategory(controller)
+              : _buildButtonFilter(controller),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildBodyFilter(HomeController controller) {
+  return Obx(() {
+    return SingleChildScrollView(
+      child: Wrap(
+        spacing: 13,
+        runSpacing: 13,
+        children: [
+          ...controller.listCategory.map((item) {
             final selected = controller.categorySelected.value?.id == item.id;
+
             return GestureDetector(
               onTap: () {
-                if (controller.categorySelected.value?.id == item.id) {
-                  controller.categorySelected.value = null; // bỏ chọn
-                } else {
-                  controller.categorySelected.value = item;
-                }
+                controller.categorySelected.value =
+                    controller.categorySelected.value?.id == item.id
+                        ? null
+                        : item;
+
+                controller.errorCategory.value = '';
               },
               child: Container(
                 height: AppDimens.height35,
                 width: AppDimens.sizeIconBig,
                 decoration: BoxDecoration(
                   border: Border.all(
-                      color: selected
-                          ? AppColors.mainColors
-                          : AppColors.bgKeyBoardbtn,
-                      width: 0.5),
+                    color: selected
+                        ? AppColors.mainColors
+                        : AppColors.bgKeyBoardbtn,
+                    width: 0.5,
+                  ),
                   borderRadius: BorderRadius.circular(AppDimens.radius12),
                   color: selected ? AppColors.basicWhite : AppColors.grey2,
                 ),
@@ -82,10 +102,104 @@ Widget _buildFilter(HomeController controller) {
                 ),
               ),
             );
-          }).toList(),
+          }),
+          GestureDetector(
+            onTap: () {
+              controller.showDialogCreateCategory();
+            },
+            child: UtilWidget.baseCard(
+              height: AppDimens.height35,
+              width: AppDimens.height45,
+              border: Border.all(
+                color: AppColors.mainColors,
+                width: 0.8,
+              ),
+              borderRadius: AppDimens.radius12,
+              backgroundColor: AppColors.basicWhite,
+              child: Center(
+                child: Icon(
+                  Icons.add,
+                  color: AppColors.mainColors,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  });
+}
+
+Widget _buildButtonFilter(HomeController controller) {
+  return ButtonUtils.buildFooterButtons(
+    textCancel: "Thiết lập lại",
+    textConfirm: LocaleKeys.button_confirm.tr,
+    onCancel: () {
+      controller.categorySelected.value = null;
+      controller.fillerCategory();
+      controller.showFilter.value = false;
+    },
+    onConfirm: () {
+      controller.fillerCategory();
+      controller.showFilter.value = false;
+    },
+  );
+}
+
+Widget _buildButtonEditCategory(HomeController controller) {
+  return Row(
+    children: [
+      Expanded(
+        flex: 2,
+        child: ButtonUtils.buildButton(
+          "Hủy",
+          () {
+            controller.isEditCategory.value = false;
+          },
+          backgroundColor: AppColors.basicWhite,
+          showLoading: true,
+          colorText: AppColors.mainColors,
+          height: AppDimens.btnMediumTbSmall,
+          width: 40,
+          borderRadius: BorderRadius.circular(AppDimens.radius12),
+          border: Border.all(color: AppColors.mainColors),
         ),
-      );
-    }),
+      ),
+      sdsSBWidth60,
+      Expanded(
+        flex: 6,
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: ButtonUtils.buildButton(
+                LocaleKeys.task_remove.tr,
+                () => controller.showDialogDelete(),
+                backgroundColor: AppColors.basicWhite,
+                colorText: AppColors.overdueColor,
+                height: AppDimens.btnMediumTbSmall,
+                borderRadius: BorderRadius.circular(AppDimens.radius12),
+                border: Border.all(color: AppColors.overdueColor),
+              ),
+            ),
+            sdsSBWidth12,
+            Expanded(
+              flex: 3,
+              child: ButtonUtils.buildButton(
+                "Cập nhật",
+                () {
+                  controller.showDialogUpdateCategory();
+                },
+                backgroundColor: AppColors.mainColors,
+                colorText: AppColors.basicWhite,
+                height: AppDimens.btnMediumTbSmall,
+                borderRadius: BorderRadius.circular(AppDimens.radius12),
+              ),
+            ),
+          ],
+        ),
+      )
+    ],
   );
 }
 
@@ -230,76 +344,97 @@ Widget _buildProductCard(ProductEntity entity,
     ],
     onTap: onTap,
     child: Padding(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(12),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // 1. Ảnh sản phẩm
           ClipRRect(
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(10),
             child: Image.network(
-              entity.image!,
-              width: 80,
-              height: 80,
-              fit: BoxFit.fill,
+              entity.image ?? '',
+              width: 90,
+              height: 90,
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) => Container(
-                width: 80,
-                height: 80,
-                color: Colors.grey[200],
-                child:
-                    const Icon(Icons.image_not_supported, color: Colors.grey),
+                width: 90,
+                height: 90,
+                color: Colors.grey[100],
+                child: const Icon(Icons.image_not_supported,
+                    color: Colors.grey, size: 32),
               ),
             ),
           ),
-          sdsSBWidth12,
+          const SizedBox(width: 12),
 
           // 2. Thông tin chi tiết
           Expanded(
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      // Tên sản phẩm
                       TextUtils(
                         text: entity.name ?? '',
-                        availableStyle: StyleEnum.t16Bold,
+                        availableStyle: StyleEnum.t15Bold,
                         maxLine: 1,
+                        color: AppColors.textPrimary,
                       ),
                       sdsSBHeight4,
+
+                      // Mô tả
                       TextUtils(
                         text: entity.description ?? '',
-                        availableStyle: StyleEnum.t13Regular,
+                        availableStyle: StyleEnum.t12Regular,
                         color: AppColors.grey,
+                        maxLine: 2,
                       ),
                       sdsSBHeight8,
+
+                      // Giá
                       TextUtils(
-                        text: entity.price.toString(),
-                        availableStyle: StyleEnum.t16Bold,
+                        text: formatCurrency(entity.price),
+                        availableStyle: StyleEnum.t15Bold,
+                        color: AppColors.mainColors,
                       ),
-                      TextUtils(
-                        text: entity.stock.toString(),
-                        availableStyle: StyleEnum.t14Bold,
+                      sdsSBHeight4,
+
+                      Row(
+                        children: [
+                          Icon(Icons.inventory_2_outlined,
+                              size: 13, color: AppColors.grey),
+                          sdsSBWidth4,
+                          TextUtils(
+                            text: "Kho: ${entity.stock ?? 0}",
+                            availableStyle: StyleEnum.t12Regular,
+                            color: AppColors.grey,
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                buildIconButton(() {
-                  UtilWidget.showConfirmDialog(
-                    title: LocaleKeys.add_tasks_delete_task.tr,
-                    subtitle: LocaleKeys.add_tasks_confirm_delete_task.tr,
-                    typeAction: AppConst.actionNotification,
-                    onCancel: () {
-                      Get.back();
-                    },
-                    onConfirm: onDelete,
-                  );
-                }, icon: Icons.delete_outline, isIcon: true)
+
+                // Nút xóa
+                buildIconButton(
+                  () {
+                    UtilWidget.showConfirmDialog(
+                      title: LocaleKeys.add_tasks_delete_task.tr,
+                      subtitle: LocaleKeys.add_tasks_confirm_delete_task.tr,
+                      typeAction: AppConst.actionNotification,
+                      onCancel: () => Get.back(),
+                      onConfirm: onDelete,
+                    );
+                  },
+                  icon: Icons.delete_outline,
+                  isIcon: true,
+                ),
               ],
             ),
           ),
-          const SizedBox(width: 8),
         ],
       ),
     ),

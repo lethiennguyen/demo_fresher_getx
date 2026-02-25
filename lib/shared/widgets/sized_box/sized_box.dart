@@ -41,17 +41,18 @@ const Widget sdsSBWidth16 = SizedBox(width: 16);
 const Widget sdsSBWidth60 = SizedBox(width: 60);
 
 const Widget dividerBase = Divider(
-  color: AppColors.grey,
+  color: Color(0xFFEEEEEE),
+  height: 1,
   thickness: 1,
 );
 const Widget dividerBase02 = Divider(
-  color: AppColors.grey,
+  color: Color(0xFFEEEEEE),
   height: 0,
   thickness: 0.2,
 );
 
 const Widget dividerBaseThin = Divider(
-  color: AppColors.grey,
+  color: Color(0xFFEEEEEE),
   thickness: 0.3,
   height: 0.3,
 );

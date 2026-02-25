@@ -93,6 +93,7 @@ class IconLeadingTextField extends TaskField {
                     minLines: minLines,
                     maxLines: maxLines,
                     textCapitalization: TextCapitalization.sentences,
+                    cursorColor: AppColors.basicBlack,
                     readOnly: readOnly ?? false,
                     style: TextStyle(
                       fontSize: fontSize ?? AppDimens.fontSmall(),

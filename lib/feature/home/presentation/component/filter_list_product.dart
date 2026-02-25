@@ -1,18 +1,20 @@
 import 'package:demo_fresher_getx/lib.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../generated/locales.g.dart';
 
 class FilterListProduct {
   static Widget fillter({
-    Widget? widget,
-    VoidCallback? onConfirm,
-    VoidCallback? onCancel,
+    Widget? body,
+    Widget? widgetConfirm,
+    VoidCallback? onEdit,
     String? title,
+    String? edit,
   }) {
     return Container(
-      height: Get.height * 0.3,
+      height: Get.height * 0.4,
       decoration: BoxDecoration(
           color: AppColors.basicWhite,
           border: Border(
@@ -26,44 +28,37 @@ class FilterListProduct {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextUtils(
-            text: title ?? "",
-            availableStyle: StyleEnum.t16Bold,
-          ),
-          sdsSBHeight15,
-          Expanded(child: widget ?? SizedBox()),
-          sdsSBHeight15,
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Expanded(
-                child: ButtonUtils.buildButton(
-                  LocaleKeys.button_cancel.tr,
-                  onCancel ??
-                      () {
-                        Get.back();
-                      },
-                  backgroundColor: AppColors.basicWhite,
-                  showLoading: true,
-                  colorText: AppColors.mainColors,
-                  height: AppDimens.btnMediumTbSmall,
-                  borderRadius: BorderRadius.circular(AppDimens.radius12),
-                  border: Border.all(color: AppColors.mainColors),
-                ),
+              TextUtils(
+                text: title ?? "",
+                availableStyle: StyleEnum.t16Bold,
               ),
-              sdsSBWidth16,
-              Expanded(
-                child: ButtonUtils.buildButton(
-                  LocaleKeys.button_confirm.tr,
-                  onConfirm ?? () {},
-                  backgroundColor: AppColors.mainColors,
-                  showLoading: true,
-                  colorText: AppColors.basicWhite,
-                  height: AppDimens.btnMediumTbSmall,
-                  borderRadius: BorderRadius.circular(AppDimens.radius12),
+              GestureDetector(
+                onTap: onEdit,
+                child: Row(
+                  children: [
+                    TextUtils(
+                      text: edit ?? "",
+                      color: AppColors.mainColors,
+                      availableStyle: StyleEnum.t16Bold,
+                    ),
+                    sdsSBWidth2,
+                    Icon(
+                      Icons.edit,
+                      color: AppColors.mainColors,
+                      size: AppDimens.sizeIconSmall,
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
+          sdsSBHeight15,
+          Expanded(child: body ?? SizedBox()),
+          sdsSBHeight15,
+          widgetConfirm ?? SizedBox(),
           sdsSBHeight15,
         ],
       ).paddingAll(AppDimens.padding16),

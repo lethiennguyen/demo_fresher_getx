@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const baseUrl = 'http://192.168.1.229:8080/api/v1/';
+  static const baseUrl = 'http://192.168.1.115:8080/api/v1/';
 
   /// Login
   static const login = 'login';
@@ -10,4 +10,7 @@ class ApiUrl {
   static const categories = 'categories';
 
   static const delete = 'products';
+
+  static final String urlImagePicker =
+      'https://api.cloudinary.com/v1_1/dh5rrukew/image/upload';
 }

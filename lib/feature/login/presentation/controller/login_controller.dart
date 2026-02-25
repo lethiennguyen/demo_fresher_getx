@@ -59,9 +59,9 @@ class LoginController extends BaseGetxController with WidgetsBindingObserver {
       Get.offAllNamed(AppRouter.routerHome);
     } catch (e) {
       ShowPopup.showDiaLogNotifyton(
-        LocaleKeys.notification_title,
+        LocaleKeys.notification_title.tr,
         "Đăng nhập thất bại",
-        LocaleKeys.button_confirm,
+        LocaleKeys.button_confirm.tr,
         null,
       );
     } finally {

@@ -3,10 +3,14 @@ import 'package:demo_fresher_getx/feature/home/domain/entities/delete_product_en
 import 'package:demo_fresher_getx/feature/home/domain/entities/list_product_request.dart';
 
 import '../../../../core/base/base.src.dart';
+import '../../../detail/domain/domain.src.dart';
+import '../../domain/domain.src.dart';
 
 abstract class HomeDataSources {
   Future<ApiResponseList<ProductItemResponseModel>> lisProductItem(
       ListProductRequestEntity entity);
   Future<ApiResponseList<CategoriesResponseModel>> categories();
+  Future<ApiResponse> updateCategory(CategoryRequestEntity entity);
+  Future<ApiResponse<bool>> deleteCategory(DeleteCategoryEntity entity);
   Future<ApiResponse<bool>> deleteProject(DeleteProductEntity entity);
 }

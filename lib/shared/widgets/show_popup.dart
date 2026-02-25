@@ -1,3 +1,4 @@
+import 'package:demo_fresher_getx/core/core.src.dart';
 import 'package:demo_fresher_getx/generated/locales.g.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,6 +14,110 @@ class ShowPopup {
   static void dismissDialog() {
     if (_numDialog > 0) {
       Get.back();
+    }
+  }
+
+  static void showErrorMessage(
+    String error, {
+    int code = 0,
+    bool isExpiredToken = false,
+  }) {
+    if (_numDialog < 1) {
+      if (isExpiredToken) {
+        showDialogNotificationError(
+          error,
+          code: code,
+          nameAction: LocaleKeys.app_logout,
+          function: () {
+            Get.offAllNamed(AppRouter.routerLogin);
+          },
+        );
+      } else {
+        showDialogNotificationError(
+          error,
+          code: code,
+          isActiveBack: false,
+        );
+      }
+    }
+  }
+
+  static void showDialogNotificationError(
+    String content, {
+    bool isActiveBack = true,
+    Function? function,
+    String nameAction = LocaleKeys.app_close,
+    bool isExpiredToken = false,
+    int code = 0,
+  }) {
+    _showDialog(
+        Dialog(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12.0),
+          ),
+          backgroundColor: AppColors.basicWhite,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(top: 15, bottom: 10),
+                  child: Icon(
+                    _buildIconDialog(content, code: code),
+                    size: AppDimens.btnMediumTb,
+                    color: AppColors.mainColors,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(15.0),
+                  constraints: const BoxConstraints(maxHeight: 200),
+                  child: SingleChildScrollView(
+                    child: TextUtils(
+                      text: content,
+                      availableStyle: StyleEnum.t16Bold,
+                      // color: AppColors.primaryNavy,
+                      textAlign: TextAlign.center,
+                      maxLine: 6,
+                    ),
+                  ),
+                ),
+                const Divider(
+                  height: 1,
+                ),
+                SizedBox(
+                  height: AppDimens.sizeIconBig,
+                  width: double.infinity,
+                  child: _baseButton(
+                    function,
+                    nameAction.tr,
+                    // colorText: AppColors.primaryNavy,
+                  ).marginAll(AppDimens.sizeIcon),
+                ),
+              ],
+            ),
+          ),
+        ),
+        isActiveBack);
+  }
+
+  static IconData _buildIconDialog(String errorStr, {int code = 0}) {
+    switch (code) {
+      case AppConst.error401:
+      case AppConst.error500:
+        return Icons.warning;
+      case AppConst.error400:
+        return Icons.alarm_off;
+      case AppConst.error403:
+        return Icons.lock;
+      case 0:
+        if (errorStr == LocaleKeys.app_noResponseFromSystem.tr ||
+            errorStr == LocaleKeys.app_errorConnectFailedStr.tr) {
+          return Icons.signal_wifi_off;
+        }
+        return Icons.notifications_none;
+      default:
+        return Icons.notifications_none;
     }
   }
 
@@ -98,6 +203,7 @@ class ShowPopup {
                 text: message,
                 color: AppColors.colorBlack,
                 fontWeight: FontWeight.w600,
+                maxLine: 3,
                 size: AppDimens.sizeText14,
               ),
               sdsSBHeight20,
@@ -123,11 +229,11 @@ class ShowPopup {
   static void showDiaLogTextField(
     String title,
     String buttonText,
-    VoidCallback onComfirm,
     TextEditingController controller,
     Rx<FocusNode> focusNode, {
     bool isActiveBack = true,
     String? hintText,
+    VoidCallback? onConfirm,
     String? Function(String?)? validator,
   }) {
     _showDialog(
@@ -151,6 +257,10 @@ class ShowPopup {
                 heightInput: AppDimens.height45,
                 textEditingController: controller,
                 currentNode: focusNode,
+                iconLeading: const Icon(
+                  Icons.edit,
+                  color: AppColors.grey,
+                ),
                 hintText: hintText ?? "",
                 borderRadius: AppDimens.borderRadiusBig,
                 paddingBottom: 0,
@@ -158,14 +268,12 @@ class ShowPopup {
                 isValidateText: true,
                 onChanged: (_) {},
               ),
-              sdsSBHeight20,
+              sdsSBHeight32,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _baseButton(
-                    () {
-                      Get.back();
-                    },
+                    () {},
                     LocaleKeys.button_cancel.tr,
                     color: const Color(0xffF24E1E),
                     textColor: Colors.white,
@@ -175,7 +283,7 @@ class ShowPopup {
                   ),
                   sdsSBHeight20,
                   _baseButton(
-                    onComfirm ??
+                    onConfirm ??
                         () {
                           Get.back();
                         },
@@ -258,3 +366,13 @@ class ShowPopup {
     );
   }
 }
+
+// Map ánh xạ giữa key lỗi (chưa dịch) và mã lỗi
+const Map<String, int> errorMessageToCodeMap = {
+  LocaleKeys.app_noResponseFromSystem: 0,
+  LocaleKeys.app_errorConnectFailedStr: 0,
+  LocaleKeys.app_otpInvalid: AppConst.error400,
+  LocaleKeys.app_logInWrongPassword: AppConst.error401,
+  LocaleKeys.app_loginSessionExpired: AppConst.error403,
+  LocaleKeys.app_errorInternalServer: AppConst.error500,
+};

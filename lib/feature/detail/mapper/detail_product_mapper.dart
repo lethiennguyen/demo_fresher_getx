@@ -5,7 +5,9 @@ import 'mapper.src.dart';
 
 class DetailProductMapper {
   ProductDataMapper productDataMapper;
-  DetailProductMapper(this.productDataMapper);
+  CategoryRequestMapper categoryRequestMapper;
+
+  DetailProductMapper(this.productDataMapper, this.categoryRequestMapper);
 }
 
 class ProductDataMapper
@@ -17,7 +19,7 @@ class ProductDataMapper
       id: data?.id ?? 0,
       name: data?.name ?? '',
       code: data?.code ?? '',
-      price: data?.price ?? 0.0,
+      price: double.parse(data?.price ?? 0.0),
       stock: data?.stock ?? 0,
       categoryId: data?.categoryId ?? 0,
       description: data?.description ?? '',
@@ -31,7 +33,7 @@ class ProductDataMapper
       id: entity.id,
       name: entity.name,
       code: entity.code,
-      price: entity.price,
+      price: double.parse(entity.price.toString()),
       stock: entity.stock,
       categoryId: entity.categoryId,
       description: entity.description,

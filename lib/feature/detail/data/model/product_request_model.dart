@@ -13,7 +13,7 @@ class ProductResponse {
   final int? id;
   final String? name;
   final String? code;
-  final double? price;
+  final dynamic price;
   final int? stock;
   final int? categoryId;
   final String? description;

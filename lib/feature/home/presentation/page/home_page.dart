@@ -8,6 +8,7 @@ import '../../../../core/core.src.dart';
 import '../../../../generated/locales.g.dart';
 import '../../../../lib.dart';
 import '../../../../shared/widgets/input_form/input.src.dart';
+import '../../../detail/presentation/page/detail_product_page.dart';
 import '../component/filter_list_product.dart';
 import '../component/skeleton.dart';
 import '../controller/home_controller.dart';

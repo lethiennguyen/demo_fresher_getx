@@ -1,4 +1,5 @@
 import 'package:demo_fresher_getx/core/base/base_reponse/base_response.dart';
+import 'package:demo_fresher_getx/feature/detail/domain/entities/category_request_entity.dart';
 import 'package:demo_fresher_getx/feature/home/data/data.src.dart';
 import 'package:demo_fresher_getx/feature/home/domain/repositories/home_repository.dart';
 
@@ -40,6 +41,18 @@ class HomeRepoImpl extends HomeRepository {
   @override
   Future<ApiResponse<bool>> deleteProduct(DeleteProductEntity entity) async {
     final result = await homeDataSources.deleteProject(entity);
+    return result;
+  }
+
+  @override
+  Future<ApiResponse<bool>> deleteCategory(DeleteCategoryEntity entity) async {
+    final result = await homeDataSources.deleteCategory(entity);
+    return result;
+  }
+
+  @override
+  Future<ApiResponse> updateCategory(CategoryRequestEntity entity) async {
+    final result = await homeDataSources.updateCategory(entity);
     return result;
   }
 }

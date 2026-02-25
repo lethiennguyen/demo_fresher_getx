@@ -3,14 +3,26 @@ import 'dart:async';
 import 'package:demo_fresher_getx/feature/home/domain/repositories/home_repository.dart';
 
 import '../../../../core/base/base.src.dart';
+import '../../../detail/domain/domain.src.dart';
+import '../../../detail/domain/use_case/use_case.src.dart';
 import '../domain.src.dart';
 
 class HomeUseCase {
   final ListProductItemUseCase listProductItemUseCase;
   final CategoriesUseCase categoriesUseCase;
   final DeleteProductUseCase deleteProductUseCase;
-  HomeUseCase(this.listProductItemUseCase, this.categoriesUseCase,
-      this.deleteProductUseCase);
+  final DeleteCategoryUseCase deleteCategoryUseCase;
+  final CreateCategoryUseCase createCategoryUseCase;
+  final UpdateCategoryUseCase updateCategoryUseCase;
+
+  HomeUseCase(
+    this.listProductItemUseCase,
+    this.categoriesUseCase,
+    this.deleteProductUseCase,
+    this.deleteCategoryUseCase,
+    this.createCategoryUseCase,
+    this.updateCategoryUseCase,
+  );
 }
 
 class ListProductItemUseCase
@@ -35,12 +47,35 @@ class CategoriesUseCase extends NoInputUseCase<List<CategoriesEntity>> {
   }
 }
 
-class DeleteProductUseCase extends UseCase<DeleteProductEntity, ApiResponse<bool>> {
+class DeleteProductUseCase
+    extends UseCase<DeleteProductEntity, ApiResponse<bool>> {
   HomeRepository homeRepository;
   DeleteProductUseCase(this.homeRepository);
   @override
   FutureOr<ApiResponse<bool>> execute(DeleteProductEntity input) async {
     final result = await homeRepository.deleteProduct(input);
+    return result;
+  }
+}
+
+class DeleteCategoryUseCase
+    extends UseCase<DeleteCategoryEntity, ApiResponse<bool>> {
+  HomeRepository homeRepository;
+  DeleteCategoryUseCase(this.homeRepository);
+  @override
+  FutureOr<ApiResponse<bool>> execute(DeleteCategoryEntity input) async {
+    final result = await homeRepository.deleteCategory(input);
+    return result;
+  }
+}
+
+class UpdateCategoryUseCase
+    extends UseCase<CategoryRequestEntity, ApiResponse> {
+  HomeRepository homeRepository;
+  UpdateCategoryUseCase(this.homeRepository);
+  @override
+  FutureOr<ApiResponse> execute(CategoryRequestEntity input) async {
+    final result = await homeRepository.updateCategory(input);
     return result;
   }
 }

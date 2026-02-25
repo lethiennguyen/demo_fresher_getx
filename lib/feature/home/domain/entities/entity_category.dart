@@ -7,9 +7,9 @@ class CategoriesEntity {
     required this.name,
   });
 
-  final int? id;
-  final int? status;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final String? name;
+  int? id;
+  int? status;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? name;
 }

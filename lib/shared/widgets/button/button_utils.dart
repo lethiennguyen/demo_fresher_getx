@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_utils/src/extensions/widget_extensions.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
+import '../../../generated/locales.g.dart';
 import '../../../lib.dart';
 import '../../constants/const.src.dart';
 import '../../shares.src.dart';
@@ -197,6 +198,51 @@ class ButtonUtils {
     );
   }
 
+  static Widget buildFooterButtons({
+    String? textCancel,
+    String? textConfirm,
+    double? widthCancel,
+    double? widthConfirm,
+    VoidCallback? onCancel,
+    VoidCallback? onConfirm,
+    bool showLoadingCancel = true,
+    bool showLoadingConfirm = true,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: ButtonUtils.buildButton(
+            textCancel ?? "Thiết lập lại",
+            onCancel ??
+                () {
+                  Get.back();
+                },
+            backgroundColor: AppColors.basicWhite,
+            showLoading: showLoadingCancel,
+            colorText: AppColors.mainColors,
+            height: AppDimens.btnMediumTbSmall,
+            width: widthCancel,
+            borderRadius: BorderRadius.circular(AppDimens.radius12),
+            border: Border.all(color: AppColors.mainColors),
+          ),
+        ),
+        sdsSBWidth16,
+        Expanded(
+          child: ButtonUtils.buildButton(
+            textConfirm ?? LocaleKeys.button_confirm.tr,
+            onConfirm ?? () {},
+            backgroundColor: AppColors.mainColors,
+            showLoading: showLoadingConfirm,
+            colorText: AppColors.basicWhite,
+            height: AppDimens.btnMediumTbSmall,
+            width: widthConfirm,
+            borderRadius: BorderRadius.circular(AppDimens.radius12),
+          ),
+        ),
+      ],
+    );
+  }
+
   static Widget towBaseButton({
     required String titleLeft,
     required String titleRight,
@@ -317,7 +363,6 @@ class ButtonUtils {
     );
   }
 
-
   static Widget buildFilterButton({
     bool selected = false,
     VoidCallback? onPressed,
@@ -348,5 +393,4 @@ class ButtonUtils {
       ),
     );
   }
-
 }

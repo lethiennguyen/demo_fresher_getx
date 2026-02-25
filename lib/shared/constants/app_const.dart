@@ -11,6 +11,7 @@ class AppConst {
   static const int error500 = 500;
   static const int error404 = 404;
   static const int error401 = 401;
+  static const int error403 = 403;
   static const int error502 = 502;
   static const int error503 = 503;
   static const int error400 = 400;
@@ -18,7 +19,8 @@ class AppConst {
   //success
   static const String codeResultSuccess = "00";
 
-  static const int requestTimeOut = 15000;
+  static const Duration requestTimeOut = Duration(milliseconds: 15000);
+  // static const int requestTimeOut = 15000;
 
   ///action snackbar
   static const String actionSuccess = "actionSuccess";

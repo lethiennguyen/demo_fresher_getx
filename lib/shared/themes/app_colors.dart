@@ -23,6 +23,7 @@ abstract final class AppColors {
   static const Color primaryNavy = Color(0xFF1C1E66);
   static const Color basicBlack = Color(0xFF333333);
   static const Color primaryCam1 = Color(0xFFFD5C00);
+  static const Color textPrimary = Color(0xFF1A1A1A);
 
   ///background, border snackBar
   static const Color backgroundSuccess = Color(0xFFECFBF1);

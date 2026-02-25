@@ -1,14 +1,18 @@
 import 'dart:async';
 
 import 'package:demo_fresher_getx/core/base/base.src.dart';
+import 'package:demo_fresher_getx/shared/widgets/show_popup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../../generated/locales.g.dart';
 import '../../../../lib.dart';
 import '../../../home/domain/domain.src.dart';
+import '../../../image_picker_load/image_picker_load.src.dart';
 import '../../domain/domain.src.dart';
 import '../../domain/use_case/use_case.src.dart';
+import '../event/event.src.dart';
 
 class DetailProductController extends BaseGetxController {
   DetailProductUseCase useCase;
@@ -23,6 +27,14 @@ class DetailProductController extends BaseGetxController {
   TextEditingController inputCategoryCtrl = TextEditingController();
   TextEditingController descriptionCtrl = TextEditingController();
 
+  /// image
+  late final ImageRepository _repositoryImage = ImageRepository(this);
+  final ImageUploadRequest _requestImage = ImageUploadRequest();
+  final RxString url = ''.obs;
+  final RxBool isImage = false.obs;
+  final RxBool isUploadingImage =
+      false.obs; // lắng nghe xem ảnh có đang tải hay không
+
   Rx<FocusNode> fcsName = FocusNode().obs;
   Rx<FocusNode> fcsCode = FocusNode().obs;
   Rx<FocusNode> fcsPrice = FocusNode().obs;
@@ -34,6 +46,7 @@ class DetailProductController extends BaseGetxController {
   final selectedCategory = Rx<CategoriesEntity?>(null);
 
   final RxBool isDetail = false.obs;
+  final RxBool isEdit = false.obs;
 
   ProductEntity? _oldProduct;
 
@@ -43,6 +56,7 @@ class DetailProductController extends BaseGetxController {
 
     if (productEntity == null) {
       isDetail.value = false;
+      await fetchCategory();
       return;
     }
 
@@ -52,7 +66,24 @@ class DetailProductController extends BaseGetxController {
     _oldProduct = productEntity;
 
     await fetchCategory();
-    _fillForm();
+  }
+
+  Future<void> upImage() async {
+    try {
+      final upImage = await _repositoryImage.pickImage(ImageSource.gallery);
+      if (upImage == null) return;
+      isUploadingImage.value = true;
+      _requestImage
+        ..imagePath = upImage.path
+        ..uploadPreset = _repositoryImage.uploadPreset;
+
+      final urlImage = await _repositoryImage.uploadToCloudinary(_requestImage);
+      if (urlImage == null) return;
+      isImage.value = true;
+      url.value = urlImage;
+    } finally {
+      isUploadingImage.value = false;
+    }
   }
 
   void _fillForm({ProductEntity? productEntity}) {
@@ -61,6 +92,8 @@ class DetailProductController extends BaseGetxController {
     inputPriceCtrl.text = productEntity?.price?.toString() ?? "";
     inputStockCtrl.text = productEntity?.stock?.toString() ?? "";
     descriptionCtrl.text = productEntity?.description ?? "";
+    url.value = productEntity?.image ?? "";
+    isImage.value = url.value.isNotEmpty;
 
     if (productEntity?.category != null) {
       selectedCategory.value = listCategory
@@ -79,6 +112,9 @@ class DetailProductController extends BaseGetxController {
     inputPriceCtrl.text = productEntity!.price?.toString() ?? "";
     inputStockCtrl.text = productEntity!.stock?.toString() ?? "";
     descriptionCtrl.text = productEntity!.description ?? "";
+    url.value = productEntity!.image ?? "";
+    isImage.value = url.value.isNotEmpty;
+    isEdit.value = true;
 
     if (productEntity!.category != null) {
       selectedCategory.value = productEntity!.category;
@@ -91,9 +127,71 @@ class DetailProductController extends BaseGetxController {
     listCategory.assignAll(result);
   }
 
-  Future<void> upDateProduct() async {
-    if (!(formKey.currentState?.validate() ?? false)) return;
+  Future<void> createCategory() async {
+    showLoadingOverlay();
+    try {
+      final entity = CategoryRequestEntity(
+        name: inputCategoryCtrl.text.trim(),
+      );
+      final result = await useCase.createCategoryUseCase.execute(entity);
+      if (result.data != null) {
+        fetchCategory;
+        return;
+      }
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: result.message ?? "Thêm danh mục không thành công",
+      );
+    } finally {
+      hideLoadingOverlay();
+    }
+  }
 
+  void onRefreshProduct() {
+    EventBusUtils().fire(DeleteProductEvent());
+  }
+
+  void showDialogDelete() {
+    ShowPopup.showDiaLogConfirm("Xoa sản phẩm ", "Bạn có muỗn xóa không", () {
+      Get.back();
+    }, () {
+      deleteProduct();
+    });
+  }
+
+  Future<void> deleteProduct() async {
+    showLoadingOverlay();
+    try {
+      final result = await useCase.deleteProductUseCase
+          .execute(ProductRequestEntity(id: productEntity?.id));
+      if (result.data!) {
+        onRefreshProduct();
+        Get.back();
+        UtilWidget.showSnackBar(
+          title: LocaleKeys.notification_title.tr,
+          message: "Xóa sản phẩm thành công",
+        );
+      } else {
+        UtilWidget.showSnackBar(
+          title: LocaleKeys.notification_title.tr,
+          message: "Xóa sản phẩm không thành công",
+        );
+      }
+    } finally {
+      hideLoadingOverlay();
+    }
+  }
+
+  Future<void> upDateProduct() async {
+    onUpImage();
+    if (!(formKey.currentState?.validate() ?? false)) return;
+    if (isUploadingImage.value) {
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: "Ảnh đang trong quá trình tải",
+      );
+      return;
+    }
     showLoadingOverlay();
     try {
       final entity = ProductRequestEntity(
@@ -104,12 +202,12 @@ class DetailProductController extends BaseGetxController {
         stock: int.parse(inputStockCtrl.text.trim()),
         categoryId: selectedCategory.value?.id ?? 0,
         description: descriptionCtrl.text.trim(),
-        image: productEntity?.image ?? '',
+        image: url.value,
       );
 
       final result = await useCase.updateProductUseCase.execute(entity);
 
-      if (result.data) {
+      if (result.data!) {
         // cập nhật lại productEntity theo dữ liệu mới
         productEntity = productEntity?.copyWith(
           name: entity.name,
@@ -118,6 +216,7 @@ class DetailProductController extends BaseGetxController {
           stock: entity.stock,
           description: entity.description,
           category: selectedCategory.value,
+          image: url.value,
         );
 
         // update snapshot
@@ -127,7 +226,7 @@ class DetailProductController extends BaseGetxController {
           title: LocaleKeys.notification_title.tr,
           message: LocaleKeys.add_tasks_update_task.tr,
         );
-
+        onRefreshProduct();
         isDetail.value = true;
       } else {
         // rollback form về dữ liệu cũ
@@ -146,6 +245,14 @@ class DetailProductController extends BaseGetxController {
   }
 
   Future<void> createProduct() async {
+    onUpImage();
+    if (isUploadingImage.value) {
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: "Ảnh đang trong quá trình tải",
+      );
+      return;
+    }
     if (!(formKey.currentState?.validate() ?? false)) return;
 
     showLoadingOverlay();
@@ -157,12 +264,12 @@ class DetailProductController extends BaseGetxController {
         stock: int.parse(inputStockCtrl.text.trim()),
         categoryId: selectedCategory.value?.id ?? 0,
         description: descriptionCtrl.text.trim(),
-        image: productEntity?.image ?? '',
+        image: url.value,
       );
 
       final result = await useCase.createProductUseCase.execute(entity);
 
-      if (result.data) {
+      if (result.data != null) {
         // tạo ProductEntity mới từ form
         productEntity = ProductEntity(
           name: entity.name,
@@ -171,6 +278,7 @@ class DetailProductController extends BaseGetxController {
           stock: entity.stock,
           description: entity.description,
           category: selectedCategory.value,
+          image: entity.image,
         );
 
         _oldProduct = productEntity;
@@ -184,12 +292,43 @@ class DetailProductController extends BaseGetxController {
       } else {
         UtilWidget.showSnackBar(
           title: LocaleKeys.notification_title.tr,
-          message: LocaleKeys.add_tasks_create_task_failed.tr,
+          message: result.message ?? LocaleKeys.add_tasks_create_task_failed.tr,
         );
       }
     } finally {
       hideLoadingOverlay();
     }
+  }
+
+  void onBack() {
+    if (isDetail.value) {
+      Get.back();
+    }
+    if (isEdit.value) {
+      isDetail.value = true;
+      isEdit.value = false;
+      _fillForm(productEntity: _oldProduct);
+    }
+    if (!isDetail.value && !isEdit.value) {
+      Get.back();
+    }
+  }
+
+  void onUpImage() {
+    if (url.value.isEmpty) {
+      ShowPopup.showDialogNotificationError("Vui lòng chọn ảnh",
+          code: AppConst.error500);
+    }
+  }
+
+  String get title {
+    if (isDetail.value) {
+      return LocaleKeys.add_tasks_detail_task.tr;
+    }
+    if (isEdit.value) {
+      return LocaleKeys.add_tasks_update_task.tr;
+    }
+    return LocaleKeys.add_tasks_create_task.tr;
   }
 
   String? validateName(String? value) {

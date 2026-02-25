@@ -18,6 +18,288 @@ class LocaleKeys {
   static const app_testEnv = 'app_testEnv';
   static const app_proEnv = 'app_proEnv';
   static const app_uatEnv = 'app_uatEnv';
+  static const app_send = 'app_send';
+  static const app_tutorial = 'app_tutorial';
+  static const app_telSupportNumber = 'app_telSupportNumber';
+  static const app_phoneNumber = 'app_phoneNumber';
+  static const app_group = 'app_group';
+  static const app_search = 'app_search';
+  static const app_warning = 'app_warning';
+  static const app_receiveNotification = 'app_receiveNotification';
+  static const app_paste = 'app_paste';
+  static const app_itemEmpty = 'app_itemEmpty';
+  static const app_done = 'app_done';
+  static const app_dataEmpty = 'app_dataEmpty';
+  static const app_error = 'app_error';
+  static const app_understood = 'app_understood';
+  static const app_skip = 'app_skip';
+  static const app_share = 'app_share';
+  static const app_close = 'app_close';
+  static const app_find = 'app_find';
+  static const app_addInvExtra = 'app_addInvExtra';
+  static const app_scan = 'app_scan';
+  static const app_accept = 'app_accept';
+  static const app_filterTitleHistory = 'app_filterTitleHistory';
+  static const app_dataEmptyWhen = 'app_dataEmptyWhen';
+  static const app_errorFile = 'app_errorFile';
+  static const app_rateUs = 'app_rateUs';
+  static const app_shareApp = 'app_shareApp';
+  static const app_hello = 'app_hello';
+  static const app_labelPhone = 'app_labelPhone';
+  static const app_phoneSort = 'app_phoneSort';
+  static const app_phoneContact = 'app_phoneContact';
+  static const app_email = 'app_email';
+  static const app_report = 'app_report';
+  static const app_exitApp = 'app_exitApp';
+  static const app_setting = 'app_setting';
+  static const app_deleteAll = 'app_deleteAll';
+  static const app_home = 'app_home';
+  static const app_other = 'app_other';
+  static const app_bold = 'app_bold';
+  static const app_tryAgain = 'app_tryAgain';
+  static const app_camera = 'app_camera';
+  static const app_type = 'app_type';
+  static const app_province = 'app_province';
+  static const app_reason = 'app_reason';
+  static const app_dashboard = 'app_dashboard';
+  static const app_support = 'app_support';
+  static const app_supportive = 'app_supportive';
+  static const app_fontSize = 'app_fontSize';
+  static const app_pattern = 'app_pattern';
+  static const app_serial = 'app_serial';
+  static const app_preview = 'app_preview';
+  static const app_save = 'app_save';
+  static const app_continue = 'app_continue';
+  static const app_callPhone = 'app_callPhone';
+  static const app_call = 'app_call';
+  static const app_sendMess = 'app_sendMess';
+  static const app_address = 'app_address';
+  static const app_titleGuest = 'app_titleGuest';
+  static const app_choose = 'app_choose';
+  static const app_shortened = 'app_shortened';
+  static const app_all = 'app_all';
+  static const app_saveData = 'app_saveData';
+  static const app_duplicate = 'app_duplicate';
+  static const app_contact = 'app_contact';
+  static const app_refresh = 'app_refresh';
+  static const app_bole = 'app_bole';
+  static const app_alignLeft = 'app_alignLeft';
+  static const app_alignCenter = 'app_alignCenter';
+  static const app_alignRight = 'app_alignRight';
+  static const app_vnd = 'app_vnd';
+  static const app_supportCus = 'app_supportCus';
+  static const app_keyWord = 'app_keyWord';
+  static const app_errorDataOverload = 'app_errorDataOverload';
+  static const app_savePicture = 'app_savePicture';
+  static const app_sharePicture = 'app_sharePicture';
+  static const app_title = 'app_title';
+  static const app_notification = 'app_notification';
+  static const app_cancel = 'app_cancel';
+  static const app_confirm = 'app_confirm';
+  static const app_openSetting = 'app_openSetting';
+  static const app_companyProduc = 'app_companyProduc';
+  static const app_messageUseNoInternet = 'app_messageUseNoInternet';
+  static const app_errorNoticeValidateNum = 'app_errorNoticeValidateNum';
+  static const app_inputEmpty = 'app_inputEmpty';
+  static const app_filterTitle_Keyword = 'app_filterTitle_Keyword';
+  static const app_filterDateTimeError = 'app_filterDateTimeError';
+  static const app_removeFilter = 'app_removeFilter';
+  static const app_removeSearch = 'app_removeSearch';
+  static const app_errorConnectTimeOut = 'app_errorConnectTimeOut';
+  static const app_errorInternalServer = 'app_errorInternalServer';
+  static const app_error502 = 'app_error502';
+  static const app_error503 = 'app_error503';
+  static const app_error404 = 'app_error404';
+  static const app_error405 = 'app_error405';
+  static const app_error401 = 'app_error401';
+  static const app_error400 = 'app_error400';
+  static const app_errorConnectFailed = 'app_errorConnectFailed';
+  static const app_errorConnectFailedStr = 'app_errorConnectFailedStr';
+  static const app_errorIdentityCard = 'app_errorIdentityCard';
+  static const app_errorPhoneNumberType = 'app_errorPhoneNumberType';
+  static const app_errorTaxCodeCount = 'app_errorTaxCodeCount';
+  static const app_errorEmail = 'app_errorEmail';
+  static const app_errorNoInternetTitle = 'app_errorNoInternetTitle';
+  static const app_errorNoInternetContnet = 'app_errorNoInternetContnet';
+  static const app_errorNoInternetAppTitle = 'app_errorNoInternetAppTitle';
+  static const app_errorNoInternetAppContent = 'app_errorNoInternetAppContent';
+  static const app_userNotAccess = 'app_userNotAccess';
+  static const app_month = 'app_month';
+  static const app_january = 'app_january';
+  static const app_february = 'app_february';
+  static const app_march = 'app_march';
+  static const app_april = 'app_april';
+  static const app_may = 'app_may';
+  static const app_june = 'app_june';
+  static const app_july = 'app_july';
+  static const app_august = 'app_august';
+  static const app_september = 'app_september';
+  static const app_october = 'app_october';
+  static const app_november = 'app_november';
+  static const app_december = 'app_december';
+  static const app_yes = 'app_yes';
+  static const app_no = 'app_no';
+  static const app_year = 'app_year';
+  static const app_day = 'app_day';
+  static const app_login_experience = 'app_login_experience';
+  static const app_loginTitle = 'app_loginTitle';
+  static const app_accountTitle = 'app_accountTitle';
+  static const app_enterAccountTitle = 'app_enterAccountTitle';
+  static const app_passwordTitle = 'app_passwordTitle';
+  static const app_enterPasswordTitle = 'app_enterPasswordTitle';
+  static const app_rememberAccount = 'app_rememberAccount';
+  static const app_forgotPassword = 'app_forgotPassword';
+  static const app_productSoftdreams = 'app_productSoftdreams';
+  static const app_enterYourEmailToReceiveOTP =
+      'app_enterYourEmailToReceiveOTP';
+  static const app_enterEmail = 'app_enterEmail';
+  static const app_enterOTP = 'app_enterOTP';
+  static const app_weHaveSentOTPToEmail = 'app_weHaveSentOTPToEmail';
+  static const app_enterNewPasswordForYourAccount =
+      'app_enterNewPasswordForYourAccount';
+  static const app_newPassword = 'app_newPassword';
+  static const app_confirmPassword = 'app_confirmPassword';
+  static const app_reEnterNewPassword = 'app_reEnterNewPassword';
+  static const app_complete = 'app_complete';
+  static const app_addFaceId = 'app_addFaceId';
+  static const app_attendanceHistory = 'app_attendanceHistory';
+  static const app_addFaceNew = 'app_addFaceNew';
+  static const app_today = 'app_today';
+  static const app_yesterday = 'app_yesterday';
+  static const app_checkIn_success = 'app_checkIn_success';
+  static const app_time_in = 'app_time_in';
+  static const app_time_out = 'app_time_out';
+  static const app_time = 'app_time';
+  static const app_in = 'app_in';
+  static const app_out = 'app_out';
+  static const app_instruct_liveness = 'app_instruct_liveness';
+  static const app_LivenessGuideTitle = 'app_LivenessGuideTitle';
+  static const app_LivenessStartHint = 'app_LivenessStartHint';
+  static const app_LivenessStepHint = 'app_LivenessStepHint';
+  static const app_LivenessNote = 'app_LivenessNote';
+  static const app_start = 'app_start';
+  static const app_birthday = 'app_birthday';
+  static const app_gender = 'app_gender';
+  static const app_cccd = 'app_cccd';
+  static const app_information_parents = 'app_information_parents';
+  static const app_phone_parents = 'app_phone_parents';
+  static const app_fullName = 'app_fullName';
+  static const app_nameAccount = 'app_nameAccount';
+  static const app_resetPassword = 'app_resetPassword';
+  static const app_individual = 'app_individual';
+  static const app_TurnLeftFace = 'app_TurnLeftFace';
+  static const app_TurnRightFace = 'app_TurnRightFace';
+  static const app_faceUp = 'app_faceUp';
+  static const app_faceDown = 'app_faceDown';
+  static const app_between = 'app_between';
+  static const app_blink = 'app_blink';
+  static const app_smileAction = 'app_smileAction';
+  static const app_undefined = 'app_undefined';
+  static const app_TurnLeftFaceTitle = 'app_TurnLeftFaceTitle';
+  static const app_TurnRightFaceTitle = 'app_TurnRightFaceTitle';
+  static const app_faceUpTitle = 'app_faceUpTitle';
+  static const app_faceDownTitle = 'app_faceDownTitle';
+  static const app_betweenTitle = 'app_betweenTitle';
+  static const app_blinkTitle = 'app_blinkTitle';
+  static const app_smileTitle = 'app_smileTitle';
+  static const app_cameraInitializing = 'app_cameraInitializing';
+  static const app_cameraInitializeError = 'app_cameraInitializeError';
+  static const app_second = 'app_second';
+  static const app_startFace = 'app_startFace';
+  static const app_successFace = 'app_successFace';
+  static const app_errorFace = 'app_errorFace';
+  static const app_waitingFace = 'app_waitingFace';
+  static const app_hintFaceIDOne1 = 'app_hintFaceIDOne1';
+  static const app_hintFaceIDOne2 = 'app_hintFaceIDOne2';
+  static const app_hintFaceIDOne3 = 'app_hintFaceIDOne3';
+  static const app_hintFaceIDTwo = 'app_hintFaceIDTwo';
+  static const app_hintFaceIDThree = 'app_hintFaceIDThree';
+  static const app_titleCheckFaceId = 'app_titleCheckFaceId';
+  static const app_titleAuthentic = 'app_titleAuthentic';
+  static const app_face_id_live = 'app_face_id_live';
+  static const app_hintFaceIDTwo1 = 'app_hintFaceIDTwo1';
+  static const app_hintFaceIDThree1 = 'app_hintFaceIDThree1';
+  static const app_titleCheckFaceId1 = 'app_titleCheckFaceId1';
+  static const app_face_empty = 'app_face_empty';
+  static const app_many_face = 'app_many_face';
+  static const app_not_smile_face = 'app_not_smile_face';
+  static const app_live_ness_action = 'app_live_ness_action';
+  static const app_live_ness_action1 = 'app_live_ness_action1';
+  static const app_profileFaceID = 'app_profileFaceID';
+  static const app_complete_identification = 'app_complete_identification';
+  static const app_fullName1 = 'app_fullName1';
+  static const app_EnterFullName1 = 'app_EnterFullName1';
+  static const app_studentId = 'app_studentId';
+  static const app_EnterStudentId = 'app_EnterStudentId';
+  static const app_classUnit = 'app_classUnit';
+  static const app_EnterClassUnit = 'app_EnterClassUnit';
+  static const app_grade = 'app_grade';
+  static const app_class = 'app_class';
+  static const app_retake = 'app_retake';
+  static const app_addNew = 'app_addNew';
+  static const app_loginFailed = 'app_loginFailed';
+  static const app_Attention = 'app_Attention';
+  static const app_personalProfile = 'app_personalProfile';
+  static const app_accountInformation = 'app_accountInformation';
+  static const app_male = 'app_male';
+  static const app_female = 'app_female';
+  static const app_addFaceSuccess = 'app_addFaceSuccess';
+  static const app_addFaceFail = 'app_addFaceFail';
+  static const app_errorProcessingImage = 'app_errorProcessingImage';
+  static const app_noImageDataAvailable = 'app_noImageDataAvailable';
+  static const app_noHistoryAttendanceFound = 'app_noHistoryAttendanceFound';
+  static const app_logoutTitle = 'app_logoutTitle';
+  static const app_logout = 'app_logout';
+  static const app_timekeepingSuccess = 'app_timekeepingSuccess';
+  static const app_timekeepingFailed = 'app_timekeepingFailed';
+  static const app_youHaveSuccessfullyTimekeepingOn =
+      'app_youHaveSuccessfullyTimekeepingOn';
+  static const app_youHaveSuccessfullyTimekeepingOut =
+      'app_youHaveSuccessfullyTimekeepingOut';
+  static const app_concentrationLevel = 'app_concentrationLevel';
+  static const app_timetable = 'app_timetable';
+  static const app_officialClass = 'app_officialClass';
+  static const app_supplementaryClass = 'app_supplementaryClass';
+  static const app_dozedOff = 'app_dozedOff';
+  static const app_raiseHand = 'app_raiseHand';
+  static const app_usingPhone = 'app_usingPhone';
+  static const app_goOutDuringClass = 'app_goOutDuringClass';
+  static const app_absent = 'app_absent';
+  static const app_late_early = 'app_late_early';
+  static const app_Monday = 'app_Monday';
+  static const app_Tuesday = 'app_Tuesday';
+  static const app_Wednesday = 'app_Wednesday';
+  static const app_Thursday = 'app_Thursday';
+  static const app_Friday = 'app_Friday';
+  static const app_Saturday = 'app_Saturday';
+  static const app_Sunday = 'app_Sunday';
+  static const app_morning = 'app_morning';
+  static const app_afternoon = 'app_afternoon';
+  static const app_classShift = 'app_classShift';
+  static const app_week = 'app_week';
+  static const app_week1 = 'app_week1';
+  static const app_week2 = 'app_week2';
+  static const app_week3 = 'app_week3';
+  static const app_week4 = 'app_week4';
+  static const app_lesson = 'app_lesson';
+  static const app_emailNotFound = 'app_emailNotFound';
+  static const app_otpHaveSentToEmail = 'app_otpHaveSentToEmail';
+  static const app_failedToSentOTP = 'app_failedToSentOTP';
+  static const app_successfullyVerifiedOTP = 'app_successfullyVerifiedOTP';
+  static const app_otpInvalid = 'app_otpInvalid';
+  static const app_pleaseEnterFullOtp = 'app_pleaseEnterFullOtp';
+  static const app_thisFieldCannotBeEmpty = 'app_thisFieldCannotBeEmpty';
+  static const app_confirmPasswordNotMatch = 'app_confirmPasswordNotMatch';
+  static const app_resetPasswordSuccess = 'app_resetPasswordSuccess';
+  static const app_resetPasswordFailed = 'app_resetPasswordFailed';
+  static const app_changePasswordSuccess = 'app_changePasswordSuccess';
+  static const app_changePasswordFailed = 'app_changePasswordFailed';
+  static const app_noResponseFromSystem = 'app_noResponseFromSystem';
+  static const app_loginSessionExpired = 'app_loginSessionExpired';
+  static const app_logInWrongAccountOrPassword =
+      'app_logInWrongAccountOrPassword';
+  static const app_logInWrongPassword = 'app_logInWrongPassword';
+  static const app_accountNotExist = 'app_accountNotExist';
   static const dialog_close = 'dialog_close';
   static const dialog_errorConnectFailedStr = 'dialog_errorConnectFailedStr';
   static const dialog_errorConnectTimeOut = 'dialog_errorConnectTimeOut';
@@ -511,13 +793,14 @@ class LocaleKeys {
   static const monthsAgo = 'monthsAgo';
   static const yearsAgo = 'yearsAgo';
   static const status = 'status';
+  static const app_pleaseEnterFullOTP = 'app_pleaseEnterFullOTP';
   static const login_urlNotFound = 'login_urlNotFound';
   static const login_invalidUrlCode = 'login_invalidUrlCode';
 }
 
 class Locales {
   static const en_US = {
-    'app_name': 'EasyWork',
+    'app_name': 'Demo',
     'app_somethingWentWrong': 'Something went wrong, please try again later.',
     'app_cannotConnectToServer':
         'Cannot connect to the server, please check your internet connection.',
@@ -525,6 +808,297 @@ class Locales {
     'app_testEnv': 'Test Environment',
     'app_proEnv': 'Production Environment',
     'app_uatEnv': 'UAT Environment',
+    'app_send': 'Send',
+    'app_tutorial': 'User Guide',
+    'app_telSupportNumber': '0971101936',
+    'app_phoneNumber': 'Hotline: 0971 101 936',
+    'app_group': 'Group',
+    'app_search': 'Search',
+    'app_warning': 'Warning',
+    'app_receiveNotification': 'Receive notifications',
+    'app_paste': 'Paste',
+    'app_itemEmpty': '-',
+    'app_done': 'Done',
+    'app_dataEmpty': 'No records found!',
+    'app_error': 'Error',
+    'app_understood': 'Understood',
+    'app_skip': 'Skip',
+    'app_share': 'Share',
+    'app_close': 'Close',
+    'app_find': 'Search',
+    'app_addInvExtra': 'Add invoice details',
+    'app_scan': 'Scan',
+    'app_accept': 'Accept',
+    'app_filterTitleHistory': 'Recent searches',
+    'app_dataEmptyWhen': 'No data found for search:\n',
+    'app_errorFile': 'File processing error',
+    'app_rateUs': 'Rate the app',
+    'app_shareApp': 'Share the app',
+    'app_hello': 'Hello!',
+    'app_labelPhone': 'Phone number',
+    'app_phoneSort': 'Phone: ',
+    'app_phoneContact': 'Contact phone number',
+    'app_email': 'Email',
+    'app_report': 'Feedback',
+    'app_exitApp': 'Tap again to exit',
+    'app_setting': 'Settings',
+    'app_deleteAll': 'Delete all',
+    'app_home': 'Home',
+    'app_other': 'Others',
+    'app_bold': 'Bold',
+    'app_tryAgain': 'Try again',
+    'app_camera': 'Take Photo',
+    'app_type': 'Type',
+    'app_province': 'Province/City of issue',
+    'app_reason': 'Reason',
+    'app_dashboard': 'Dashboard',
+    'app_support': 'Need support',
+    'app_supportive': 'Support',
+    'app_fontSize': 'Font size',
+    'app_pattern': 'Form No: ',
+    'app_serial': 'Serial No: ',
+    'app_preview': 'Preview',
+    'app_save': 'Save',
+    'app_continue': 'Continue',
+    'app_callPhone': 'Make a call',
+    'app_call': 'Call',
+    'app_sendMess': 'SMS',
+    'app_address': 'Address',
+    'app_titleGuest': 'Guest',
+    'app_choose': 'Choose',
+    'app_shortened': 'Collapse',
+    'app_all': 'All',
+    'app_saveData': 'Save data',
+    'app_duplicate': 'Duplicate',
+    'app_contact': 'Contact',
+    'app_refresh': 'Refresh',
+    'app_bole': 'Bold',
+    'app_alignLeft': 'Align left',
+    'app_alignCenter': 'Align center',
+    'app_alignRight': 'Align right',
+    'app_vnd': ' VND',
+    'app_supportCus': 'Customer support',
+    'app_keyWord': 'Keyword: ',
+    'app_errorDataOverload': 'Data overload',
+    'app_savePicture': 'Save image',
+    'app_sharePicture': 'Share image',
+    'app_title': 'Title',
+    'app_notification': 'Notification',
+    'app_cancel': 'Cancel',
+    'app_confirm': 'Confirm',
+    'app_openSetting': 'Open settings',
+    'app_companyProduc': 'Software provided by NST-HRM',
+    'app_messageUseNoInternet': 'You are not connected to the NST-HRM system',
+    'app_errorNoticeValidateNum': 'Cannot be empty',
+    'app_inputEmpty': ' cannot be empty!',
+    'app_filterTitle_Keyword': 'Enter keyword',
+    'app_filterDateTimeError': 'Enter valid date search data!',
+    'app_removeFilter': 'Clear filter',
+    'app_removeSearch': 'Remove filter',
+    'app_errorConnectTimeOut':
+        'No response from the system. Please try again later',
+    'app_errorInternalServer': 'System error\nPlease try again later!',
+    'app_error502': 'Server is under maintenance. Please come back later.',
+    'app_error503':
+        'Server is under maintenance. Please try again in a few minutes.',
+    'app_error404': 'Path not found. Please contact Admin',
+    'app_error405': 'Incorrect connection method. Please contact Admin',
+    'app_error401': 'Login session expired. Please log in again',
+    'app_error400': 'Invalid request data!',
+    'app_errorConnectFailed': 'Connection failed',
+    'app_errorConnectFailedStr':
+        'Unable to connect to the server\nPlease check your internet connection',
+    'app_errorIdentityCard': 'ID card must be a 9-12 digit number',
+    'app_errorPhoneNumberType': 'Phone number must be 10-20 digits',
+    'app_errorTaxCodeCount': 'Tax code must be 10-13 digits',
+    'app_errorEmail': 'Invalid email',
+    'app_errorNoInternetTitle': 'Error loading content',
+    'app_errorNoInternetContnet':
+        'Please check your internet connection and try again',
+    'app_errorNoInternetAppTitle': 'No Internet connection',
+    'app_errorNoInternetAppContent': 'Please check again.',
+    'app_userNotAccess': 'You do not have permission to view @function',
+    'app_month': 'Month',
+    'app_january': 'January',
+    'app_february': 'February',
+    'app_march': 'March',
+    'app_april': 'April',
+    'app_may': 'May',
+    'app_june': 'June',
+    'app_july': 'July',
+    'app_august': 'August',
+    'app_september': 'September',
+    'app_october': 'October',
+    'app_november': 'November',
+    'app_december': 'December',
+    'app_yes': 'Yes',
+    'app_no': 'No',
+    'app_year': 'Year',
+    'app_day': 'Day',
+    'app_login_experience': 'Log in to experience School Monitoring now',
+    'app_loginTitle': 'Login',
+    'app_accountTitle': 'Account',
+    'app_enterAccountTitle': 'Enter account',
+    'app_passwordTitle': 'Password',
+    'app_enterPasswordTitle': 'Enter password',
+    'app_rememberAccount': 'Remember account',
+    'app_forgotPassword': 'Forgot password',
+    'app_productSoftdreams': 'Product by Softdreams and DXTech',
+    'app_enterYourEmailToReceiveOTP': 'Enter your email to receive OTP',
+    'app_enterEmail': 'Enter email',
+    'app_enterOTP': 'Enter OTP',
+    'app_weHaveSentOTPToEmail': 'We have sent OTP to email',
+    'app_enterNewPasswordForYourAccount': 'Enter new password for your account',
+    'app_newPassword': 'New password',
+    'app_confirmPassword': 'Confirm password ',
+    'app_reEnterNewPassword': 'Re-enter new password',
+    'app_complete': 'Complete',
+    'app_addFaceId': 'Add face',
+    'app_attendanceHistory': 'Attendance history',
+    'app_addFaceNew': 'Please add a new face',
+    'app_today': 'Today',
+    'app_yesterday': 'Yesterday',
+    'app_checkIn_success': 'Check-in successful',
+    'app_time_in': 'Time in',
+    'app_time_out': 'Time out',
+    'app_time': 'Time',
+    'app_in': 'in',
+    'app_out': 'out',
+    'app_instruct_liveness': 'Liveness Instructions',
+    'app_LivenessGuideTitle': 'How to use the Liveness feature',
+    'app_LivenessStartHint': 'Tap the START button to begin scanning',
+    'app_LivenessStepHint':
+        'Position your face within the frame, then perform the 5 actions shown on the screen',
+    'app_LivenessNote':
+        '*Note: Ensure proper lighting and make sure there are no objects (glasses, mask) covering your face during the Liveness process',
+    'app_start': 'Start',
+    'app_birthday': 'Date of Birth',
+    'app_gender': 'Gender',
+    'app_cccd': 'Citizen ID Number',
+    'app_information_parents': 'Parent Information',
+    'app_phone_parents': 'Parent Phone Number',
+    'app_fullName': 'Full Name',
+    'app_nameAccount': 'Account Name',
+    'app_resetPassword': 'Change Password',
+    'app_individual': 'Individual',
+    'app_TurnLeftFace': 'Turn left',
+    'app_TurnRightFace': 'Turn right',
+    'app_faceUp': 'Face up',
+    'app_faceDown': 'Face down',
+    'app_between': 'Look straight',
+    'app_blink': 'Blink',
+    'app_smileAction': 'Smile',
+    'app_undefined': 'Undefined',
+    'app_TurnLeftFaceTitle': 'Please turn your face to the left',
+    'app_TurnRightFaceTitle': 'Please turn your face to the right',
+    'app_faceUpTitle': 'Please tilt your face up',
+    'app_faceDownTitle': 'Please tilt your face down',
+    'app_betweenTitle': 'Please look straight',
+    'app_blinkTitle': 'Please blink',
+    'app_smileTitle': 'Please smile',
+    'app_cameraInitializing': 'Initializing camera...',
+    'app_cameraInitializeError': 'Camera initialization error',
+    'app_second': 'seconds',
+    'app_startFace': 'Look directly at the screen',
+    'app_successFace': 'Authentication successful',
+    'app_errorFace': 'Authentication failed',
+    'app_waitingFace': 'Please wait',
+    'app_hintFaceIDOne1': '1. Press the',
+    'app_hintFaceIDOne2': ' START ',
+    'app_hintFaceIDOne3': 'button to begin scanning',
+    'app_hintFaceIDTwo':
+        '2. Position your face within the designated camera frame and complete 5 instructed actions.',
+    'app_hintFaceIDThree':
+        '3. Wait until the process is completed successfully',
+    'app_titleCheckFaceId': 'Face ID Scanning Instructions',
+    'app_titleAuthentic': 'Face Authentication',
+    'app_face_id_live': 'Perform Face ID Scanning',
+    'app_hintFaceIDTwo1':
+        '2. Position your face within the designated camera frame and complete 5 instructed actions.',
+    'app_hintFaceIDThree1':
+        '3. Wait until the process is completed successfully',
+    'app_titleCheckFaceId1': 'Face ID Scanning Instructions',
+    'app_face_empty': 'Face not detected within the frame',
+    'app_many_face': 'Too many faces detected in the frame',
+    'app_not_smile_face': 'Please do not smile',
+    'app_live_ness_action':
+        'Please position your face within the designated frame. The process will automatically start once your face is detected.',
+    'app_live_ness_action1':
+        'Please position your face in front of the camera and perform the actions as instructed.',
+    'app_profileFaceID': 'Face Authentication',
+    'app_complete_identification': 'Complete identification',
+    'app_fullName1': 'Full name:',
+    'app_EnterFullName1': 'Enter full name',
+    'app_studentId': 'Student ID',
+    'app_EnterStudentId': 'Enter student ID',
+    'app_classUnit': 'Class unit:',
+    'app_EnterClassUnit': 'Enter class unit',
+    'app_grade': 'Grade',
+    'app_class': 'Class',
+    'app_retake': 'Retake',
+    'app_addNew': 'Add new',
+    'app_loginFailed': 'Login failed',
+    'app_Attention': 'Attention',
+    'app_personalProfile': 'Personal Profile',
+    'app_accountInformation': 'Account Information',
+    'app_male': 'Male',
+    'app_female': 'Female',
+    'app_addFaceSuccess': 'Face added successfully',
+    'app_addFaceFail': 'Failed to add face',
+    'app_errorProcessingImage': 'Error processing image',
+    'app_noImageDataAvailable': 'No image data available',
+    'app_noHistoryAttendanceFound': 'No attendance history found',
+    'app_logoutTitle': 'Are you sure you want to log out?',
+    'app_logout': 'Log out',
+    'app_timekeepingSuccess': 'Timekeeping successful',
+    'app_timekeepingFailed': 'Timekeeping failed',
+    'app_youHaveSuccessfullyTimekeepingOn':
+        'You have successfully checked in on',
+    'app_youHaveSuccessfullyTimekeepingOut':
+        'You have successfully checked out on',
+    'app_concentrationLevel': 'Concentration level',
+    'app_timetable': 'Timetable',
+    'app_officialClass': 'Official class',
+    'app_supplementaryClass': 'Supplementary class',
+    'app_dozedOff': 'Dozed off:',
+    'app_raiseHand': 'Raise hand:',
+    'app_usingPhone': 'Using phone:',
+    'app_goOutDuringClass': 'Going out during class:',
+    'app_absent': 'Absent:',
+    'app_late_early': 'Late/Early:',
+    'app_Monday': 'Mon',
+    'app_Tuesday': 'Tue',
+    'app_Wednesday': 'Wed',
+    'app_Thursday': 'Thu',
+    'app_Friday': 'Fri',
+    'app_Saturday': 'Sat',
+    'app_Sunday': 'Sun',
+    'app_morning': 'Morning',
+    'app_afternoon': 'Afternoon',
+    'app_classShift': 'Class Shift',
+    'app_week': 'Week',
+    'app_week1': 'Week 1',
+    'app_week2': 'Week 2',
+    'app_week3': 'Week 3',
+    'app_week4': 'Week 4',
+    'app_lesson': 'Lesson',
+    'app_emailNotFound': 'Email not found in the system',
+    'app_otpHaveSentToEmail': 'An OTP has been sent to your email',
+    'app_failedToSentOTP': 'Failed to send OTP',
+    'app_successfullyVerifiedOTP': 'OTP verified successfully',
+    'app_otpInvalid': 'Invalid OTP',
+    'app_pleaseEnterFullOtp': 'Please enter the complete OTP',
+    'app_thisFieldCannotBeEmpty': 'This field cannot be empty',
+    'app_confirmPasswordNotMatch': 'Confirm password does not match',
+    'app_resetPasswordSuccess': 'Password reset successfully',
+    'app_resetPasswordFailed': 'Password reset failed',
+    'app_changePasswordSuccess': 'Password changed successfully',
+    'app_changePasswordFailed': 'Password change failed',
+    'app_noResponseFromSystem': 'No response from system, please try again',
+    'app_loginSessionExpired': 'Your session has expired. Please log in again',
+    'app_logInWrongAccountOrPassword': 'Log in wrong account or password',
+    'app_logInWrongPassword': 'Log in wrong password',
+    'app_accountNotExist': 'Account not exist',
     'dialog_close': 'Close',
     'dialog_errorConnectFailedStr':
         'Cannot connect to the server.\nPlease check your network connection again.',
@@ -981,7 +1555,7 @@ class Locales {
     'status': 'Status',
   };
   static const vi_VN = {
-    'app_name': 'EasyWork',
+    'app_name': 'Demo',
     'app_somethingWentWrong': 'Đã có lỗi xảy ra, vui lòng thử lại sau.',
     'app_cannotConnectToServer':
         'Không thể kết nối đến máy chủ, vui lòng kiểm tra kết nối internet của bạn.',
@@ -989,6 +1563,176 @@ class Locales {
     'app_testEnv': 'Môi trường Test',
     'app_proEnv': 'Môi trường Thật',
     'app_uatEnv': 'Môi trường Uat',
+    'app_send': 'Gửi',
+    'app_tutorial': 'Hướng dẫn sử dụng',
+    'app_telSupportNumber': '0971101936',
+    'app_phoneNumber': 'Hotline: 0971 101 936',
+    'app_group': 'Group',
+    'app_search': 'Tìm kiếm',
+    'app_warning': 'Cảnh báo',
+    'app_receiveNotification': 'Nhận thông báo',
+    'app_paste': 'Dán',
+    'app_itemEmpty': '-',
+    'app_done': 'Xong',
+    'app_dataEmpty': 'Không có bản ghi nào!',
+    'app_error': 'Lỗi',
+    'app_understood': 'Đã hiểu',
+    'app_skip': 'Bỏ qua',
+    'app_share': 'Chia sẻ',
+    'app_close': 'Đóng',
+    'app_find': 'Tìm kiếm',
+    'app_addInvExtra': 'Thêm thông tin hoá đơn',
+    'app_scan': 'Quét',
+    'app_accept': 'Đồng ý',
+    'app_filterTitleHistory': 'Tìm kiếm gần đây',
+    'app_dataEmptyWhen': 'Không có dữ liệu khi tìm kiếm:\n',
+    'app_errorFile': 'Lỗi khi xử lý file',
+    'app_rateUs': 'Đánh giá ứng dụng',
+    'app_shareApp': 'Chia sẻ ứng dụng',
+    'app_hello': 'Xin chào!',
+    'app_labelPhone': 'Số điện thoại',
+    'app_phoneSort': 'SDT: ',
+    'app_phoneContact': 'Số điện thoại liên hệ',
+    'app_email': 'Email',
+    'app_report': 'Phản hồi',
+    'app_exitApp': 'Chạm lần nữa để thoát',
+    'app_setting': 'Cài đặt',
+    'app_deleteAll': 'Xóa tất cả',
+    'app_home': 'Trang chủ',
+    'app_other': 'Khác',
+    'app_bold': 'In đậm',
+    'app_tryAgain': 'Thử lại',
+    'app_camera': 'Chụp',
+    'app_type': 'Loại',
+    'app_province': 'Tỉnh/thành nơi lập',
+    'app_reason': 'Lý do',
+    'app_dashboard': 'Biểu đồ',
+    'app_support': 'Cần hỗ trợ',
+    'app_supportive': 'Hỗ trợ',
+    'app_fontSize': 'Cỡ chữ',
+    'app_pattern': 'Mẫu số: ',
+    'app_serial': 'Ký hiệu: ',
+    'app_preview': 'Xem trước',
+    'app_save': 'Lưu',
+    'app_continue': 'Tiếp tục',
+    'app_callPhone': 'Gọi điện',
+    'app_call': 'Gọi',
+    'app_sendMess': 'SMS',
+    'app_address': 'Địa chỉ',
+    'app_titleGuest': 'Khách',
+    'app_choose': 'Chọn',
+    'app_shortened': 'Thu gọn',
+    'app_all': 'Tất cả',
+    'app_saveData': 'Lưu dữ liệu',
+    'app_duplicate': 'Nhân bản',
+    'app_contact': 'Liên hệ',
+    'app_refresh': 'Tải lại',
+    'app_bole': 'In đâm',
+    'app_alignLeft': 'Căn trái',
+    'app_alignCenter': 'Căn giữa',
+    'app_alignRight': 'Căn phải',
+    'app_vnd': ' đồng',
+    'app_supportCus': 'Hỗ trợ khách hàng',
+    'app_keyWord': 'Từ khoá: ',
+    'app_errorDataOverload': 'Dữ liệu quá lớn',
+    'app_savePicture': 'Lưu ảnh',
+    'app_sharePicture': 'Chia sẻ ảnh',
+    'app_title': 'Tiêu đề',
+    'app_notification': 'Thông báo',
+    'app_cancel': 'Huỷ',
+    'app_confirm': 'Xác nhận',
+    'app_openSetting': 'Mở cài đặt',
+    'app_companyProduc': 'Phầm mềm cung cấp bởi NST-HRM',
+    'app_messageUseNoInternet': 'Bạn đang không kết nối đến hệ thống NST-HRM',
+    'app_errorNoticeValidateNum': 'Không được để trống',
+    'app_inputEmpty': ' không được bỏ trống!',
+    'app_filterTitle_Keyword': 'Nhập từ khóa',
+    'app_filterDateTimeError': 'Nhập đúng dữ liệu tìm kiếm theo ngày!',
+    'app_removeFilter': 'Xóa bộ lọc',
+    'app_removeSearch': 'Bỏ lọc',
+    'app_errorConnectTimeOut':
+        'Không có phản hồi từ hệ thống, Quý khách vui lòng thử lại sau',
+    'app_errorInternalServer':
+        'Lỗi xử lý hệ thống\nQuý khách vui lòng thử lại sau!!!',
+    'app_error502': 'Server đang bảo trì. Quý khách vui lòng quay lại sau.',
+    'app_error503':
+        'Server đang bảo trì. Quý khách vui lòng quay lại sau một vài phút.',
+    'app_error404': 'Không tìm thấy đường dẫn này, xin vui lòng liên hệ Admin',
+    'app_error405': 'Sai phương thức kết nối, xin vui lòng liên hệ Admin',
+    'app_error401':
+        'Phiên đăng nhập đã hết hạn. Quý khách vui lòng đăng nhập lại',
+    'app_error400': 'Dữ liệu gửi đi không hợp lệ!',
+    'app_errorConnectFailed': 'Connection failed',
+    'app_errorConnectFailedStr':
+        'Không thể kết nối tới máy chủ\nQuý khách vui lòng kiểm tra lại kết nối mạng',
+    'app_errorIdentityCard': 'Căn cước công dân là số có 9-12 chữ số',
+    'app_errorPhoneNumberType': 'Số điện thoại là số có 10-20 chữ số',
+    'app_errorTaxCodeCount': 'Mã số thuế gồm 10-13 chữ số',
+    'app_errorEmail': 'Email không hợp lệ',
+    'app_errorNoInternetTitle': 'Xảy ra sự cố khi tải nội dung',
+    'app_errorNoInternetContnet':
+        'Bạn vui lòng kiểm tra kết nối internet và thử lại',
+    'app_errorNoInternetAppTitle': 'Không có kết nối Internet',
+    'app_errorNoInternetAppContent': 'Bạn vui lòng kiểm tra lại.',
+    'app_userNotAccess': 'Bạn không có quyền xem @function',
+    'app_month': 'Tháng',
+    'app_january': 'Tháng 1',
+    'app_february': 'Tháng 2',
+    'app_march': 'Tháng 3',
+    'app_april': 'Tháng 4',
+    'app_may': 'Tháng 5',
+    'app_june': 'Tháng 6',
+    'app_july': 'Tháng 7',
+    'app_august': 'Tháng 8',
+    'app_september': 'Tháng 9',
+    'app_october': 'Tháng 10',
+    'app_november': 'Tháng 11',
+    'app_december': 'Tháng 12',
+    'app_yes': 'Có',
+    'app_no': 'Không',
+    'app_year': 'Năm',
+    'app_day': 'Ngày',
+    'app_login_experience': 'Đăng nhập để trải nghiệm School Monitoring ngay',
+    'app_loginTitle': 'Đăng nhập',
+    'app_accountTitle': 'Tài khoản',
+    'app_enterAccountTitle': 'Nhập tài khoản',
+    'app_passwordTitle': 'Mật khẩu',
+    'app_enterPasswordTitle': 'Nhập mật khẩu',
+    'app_rememberAccount': 'Ghi nhớ tài khoản',
+    'app_forgotPassword': 'Quên mật khẩu',
+    'app_productSoftdreams': 'Sản phẩm của Softdreams và DXTech',
+    'app_enterYourEmailToReceiveOTP': 'Nhập email của bạn để nhận mã OTP',
+    'app_enterEmail': 'Nhập email',
+    'app_enterOTP': 'Nhập OTP',
+    'app_weHaveSentOTPToEmail': 'Chúng tôi đã gửi mã OTP tới email',
+    'app_enterNewPasswordForYourAccount':
+        'Nhập mật khẩu mới cho tài khoản của bạn',
+    'app_newPassword': 'Mật khẩu mới',
+    'app_confirmPassword': 'Xác nhận mật khẩu',
+    'app_reEnterNewPassword': 'Nhập lại mật khẩu mới',
+    'app_complete': 'Hoàn tất',
+    'app_addFaceId': 'Thêm khuôn mặt',
+    'app_attendanceHistory': 'Lịch sử điểm danh',
+    'app_addFaceNew': 'Vui lòng thêm mới khuôn mặt',
+    'app_emailNotFound': 'Email không tồn tại trong hệ thống',
+    'app_otpHaveSentToEmail': 'Mã OTP đã được gửi tới email',
+    'app_failedToSentOTP': 'Gửi mã OTP thất bại',
+    'app_successfullyVerifiedOTP': 'Xác thực mã OTP thành công',
+    'app_otpInvalid': 'Mã OTP không hợp lệ',
+    'app_pleaseEnterFullOTP': 'Vui lòng nhập đầy đủ mã OTP',
+    'app_thisFieldCannotBeEmpty': 'Trường này không được để trống',
+    'app_confirmPasswordNotMatch': 'Xác nhận mật khẩu không khớp',
+    'app_resetPasswordSuccess': 'Đặt lại mật khẩu thành công',
+    'app_resetPasswordFailed': 'Đặt lại mật khẩu thất bại',
+    'app_changePasswordSuccess': 'Đổi mật khẩu thành công',
+    'app_changePasswordFailed': 'Đổi mật khẩu thất bại',
+    'app_noResponseFromSystem':
+        'Không có phản hồi từ hệ thống, Quý khách vui lòng thử lại sau',
+    'app_loginSessionExpired':
+        'Phiên đăng nhập đã hết hạn. Quý khách vui lòng đăng nhập lại',
+    'app_logInWrongAccountOrPassword': 'Đăng nhập sai tài khoản hoặc mật khẩu',
+    'app_logInWrongPassword': 'Sai password, vui lòng thử lại!',
+    'app_accountNotExist': 'Tài khoản không tồn tại',
     'dialog_close': 'Đóng',
     'dialog_errorConnectFailedStr':
         'Không thể kết nối tới máy chủ\nQuý khách vui lòng kiểm tra lại kết nối mạng.',

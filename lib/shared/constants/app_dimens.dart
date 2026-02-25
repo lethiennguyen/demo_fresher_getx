@@ -133,6 +133,10 @@ class AppDimens {
   static const double sizeIconExtraLarge = 200;
   static const double sizeDialogNotiIcon = 40;
 
+  /// image
+  static const double imageDetailHeight200 = 200;
+  static const double imageDetailHeight180 = 180;
+
   static const double heightChip = 30;
   static const double height35 = 35;
   static const double heightInput = 40;

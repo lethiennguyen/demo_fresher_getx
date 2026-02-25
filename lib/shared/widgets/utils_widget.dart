@@ -939,7 +939,7 @@ class UtilWidget {
     bool isTitle = true,
   }) {
     return UtilWidget.baseCard(
-      //padding: EdgeInsets.zero,
+      padding: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -993,7 +993,7 @@ class UtilWidget {
                     color: iconColor ?? AppColors.basicBlack,
                   ),
                 ],
-              ).paddingSymmetric(horizontal: 10),
+              ),
             ),
           ),
         ],
@@ -1672,11 +1672,12 @@ class UtilWidget {
           }),
           sdsSBHeight20,
           if (isAddItem)
-            UtilWidget.baseCard(
-              onTap: onTap,
-              height: AppDimens.height45,
-              borderRadius: 12,
-              border: Border.all(color: AppColors.mainColors, width: 1),
+            ElevatedButton(
+              onPressed: onTap,
+              // height: AppDimens.height45,
+              // borderRadius: 12,
+              // backgroundColor: AppColors.basicWhite,
+              // border: Border.all(color: AppColors.mainColors, width: 1),
               child: Center(
                 child: TextUtils(
                   text: addItem,
