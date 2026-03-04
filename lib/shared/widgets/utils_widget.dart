@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:badges/badges.dart' as badges;
+import 'package:shimmer/shimmer.dart';
 
 import '../../generated/locales.g.dart';
 import '../../lib.dart';
@@ -695,7 +696,7 @@ class UtilWidget {
           borderRadius: BorderRadius.circular(borderRadius),
           border: border,
           boxShadow: boxShadow),
-      child: child,
+      child: Center(child: child),
     );
 
     if (onTap != null) {
@@ -1639,13 +1640,14 @@ class UtilWidget {
   static Widget buildSelectionBottomSheet<T>({
     required String title,
     required List<T> items,
-    required bool Function(T) checkSelected, // Sử dụng function để check
+    required bool Function(T) checkSelected,
     required String Function(T) itemTitleMapper,
     required Function(T) onItemSelected,
     required VoidCallback onConfirm,
     bool isAddItem = false,
     VoidCallback? onTap,
     String addItem = "Thêm mới",
+    bool isLoading = false, // 👈 thêm dòng này
   }) {
     return UtilWidget.baseBottomSheet(
       title: title,
@@ -1654,30 +1656,36 @@ class UtilWidget {
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ...items.asMap().entries.expand((entry) {
-            final index = entry.key;
-            final item = entry.value;
+          Expanded(
+            child: isLoading
+                ? ListView(
+                    children: _buildShimmerList(),
+                  )
+                : ListView(
+                    children: items.asMap().entries.expand((entry) {
+                      final index = entry.key;
+                      final item = entry.value;
 
-            return [
-              if (index == 0) sdsSBHeight3,
-              if (index != 0) dividerBase02,
-              Obx(() => _buildItem(
-                    title: itemTitleMapper(item),
-                    isSelected: checkSelected(item),
-                    onTap: () => onItemSelected(item),
-                  )),
-              sdsSBHeight3,
-              dividerBase02,
-            ];
-          }),
+                      return [
+                        if (index == 0) sdsSBHeight3,
+                        if (index != 0) dividerBase02,
+                        Obx(() => _buildItem(
+                              title: itemTitleMapper(item),
+                              isSelected: checkSelected(item),
+                              onTap: () => onItemSelected(item),
+                              isDelete: isAddItem,
+                              onDelete: () => onItemSelected(item),
+                            )),
+                        sdsSBHeight3,
+                        dividerBase02,
+                      ];
+                    }).toList(),
+                  ),
+          ),
           sdsSBHeight20,
           if (isAddItem)
             ElevatedButton(
               onPressed: onTap,
-              // height: AppDimens.height45,
-              // borderRadius: 12,
-              // backgroundColor: AppColors.basicWhite,
-              // border: Border.all(color: AppColors.mainColors, width: 1),
               child: Center(
                 child: TextUtils(
                   text: addItem,
@@ -1698,10 +1706,34 @@ class UtilWidget {
     );
   }
 
+  static List<Widget> _buildShimmerList() {
+    return List.generate(
+      6,
+      (index) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Shimmer.fromColors(
+          baseColor: Colors.grey.shade300,
+          highlightColor: Colors.grey.shade100,
+          child: Container(
+            padding: EdgeInsets.all(AppDimens.padding8),
+            height: 45,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   static Widget _buildItem({
     required String title,
     required bool isSelected,
     required VoidCallback onTap,
+    bool isDelete = false,
+    VoidCallback? onDelete,
   }) {
     return UtilWidget.baseCard(
       onTap: onTap,

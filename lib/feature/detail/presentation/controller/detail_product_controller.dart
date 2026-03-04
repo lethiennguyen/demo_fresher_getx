@@ -124,39 +124,59 @@ class DetailProductController extends BaseGetxController {
 
   Future<void> fetchCategory() async {
     final result = await useCase.categoriesUseCase.execute();
-    listCategory.assignAll(result);
+    if (result.isNotEmpty) {
+      listCategory.assignAll(result);
+    } else {
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: "Lấy danh mục không thành công",
+      );
+    }
   }
 
   Future<void> createCategory() async {
-    showLoadingOverlay();
+    showLoading();
     try {
       final entity = CategoryRequestEntity(
         name: inputCategoryCtrl.text.trim(),
       );
       final result = await useCase.createCategoryUseCase.execute(entity);
       if (result.data != null) {
-        fetchCategory;
+        onRefreshCategory();
+        await fetchCategory();
         return;
       }
+    } catch (e) {
       UtilWidget.showSnackBar(
         title: LocaleKeys.notification_title.tr,
-        message: result.message ?? "Thêm danh mục không thành công",
+        message: "Thêm danh mục không thành công",
       );
     } finally {
-      hideLoadingOverlay();
+      hideLoading();
     }
   }
+
+  Future<void> deleteCategory(CategoriesEntity item) async {}
 
   void onRefreshProduct() {
     EventBusUtils().fire(DeleteProductEvent());
   }
 
+  void onRefreshCategory() {
+    EventBusUtils().fire(CreateCategoryEvent());
+  }
+
   void showDialogDelete() {
-    ShowPopup.showDiaLogConfirm("Xoa sản phẩm ", "Bạn có muỗn xóa không", () {
-      Get.back();
-    }, () {
-      deleteProduct();
-    });
+    UtilWidget.showConfirmDialog(
+      title: "Xóa sản phẩm",
+      subtitle: "Bạn có muỗn xóa không",
+      typeAction: AppConst.actionFail,
+      onCancel: () => Get.back(),
+      onConfirm: () {
+        Get.back();
+        deleteProduct();
+      },
+    );
   }
 
   Future<void> deleteProduct() async {
@@ -270,20 +290,8 @@ class DetailProductController extends BaseGetxController {
       final result = await useCase.createProductUseCase.execute(entity);
 
       if (result.data != null) {
-        // tạo ProductEntity mới từ form
-        productEntity = ProductEntity(
-          name: entity.name,
-          code: entity.code,
-          price: entity.price,
-          stock: entity.stock,
-          description: entity.description,
-          category: selectedCategory.value,
-          image: entity.image,
-        );
-
-        _oldProduct = productEntity;
-
-        isDetail.value = true;
+        onRefreshProduct();
+        Get.back();
 
         UtilWidget.showSnackBar(
           title: LocaleKeys.notification_title.tr,

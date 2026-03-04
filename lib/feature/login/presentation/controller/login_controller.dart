@@ -68,11 +68,4 @@ class LoginController extends BaseGetxController with WidgetsBindingObserver {
       isShowLoading.value = false;
     }
   }
-
-  @override
-  void onClose() {
-    passWorkController.dispose();
-    userNameController.dispose();
-    super.onClose();
-  }
 }

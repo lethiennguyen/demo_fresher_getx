@@ -48,12 +48,13 @@ class HomeBinding extends BaseBinding {
   @override
   void injectUseCase() {
     Get.lazyPut(() => HomeUseCase(Get.find(), Get.find(), Get.find(),
-        Get.find(), Get.find(), Get.find()));
+        Get.find(), Get.find(), Get.find(), Get.find()));
     Get.lazyPut(() => ListProductItemUseCase(Get.find()));
     Get.lazyPut(() => CategoriesUseCase(Get.find()));
     Get.lazyPut(() => DeleteProductUseCase(Get.find()));
     Get.lazyPut(() => DeleteCategoryUseCase(Get.find()));
     Get.lazyPut(() => CreateCategoryUseCase(Get.find()));
     Get.lazyPut(() => UpdateCategoryUseCase(Get.find()));
+    Get.lazyPut(() => LogoutUseCase());
   }
 }

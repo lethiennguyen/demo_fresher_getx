@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:demo_fresher_getx/feature/home/domain/repositories/home_repository.dart';
+import 'package:hive/hive.dart';
 
 import '../../../../core/base/base.src.dart';
+import '../../../../core/core.src.dart';
 import '../../../detail/domain/domain.src.dart';
 import '../../../detail/domain/use_case/use_case.src.dart';
 import '../domain.src.dart';
@@ -14,6 +16,7 @@ class HomeUseCase {
   final DeleteCategoryUseCase deleteCategoryUseCase;
   final CreateCategoryUseCase createCategoryUseCase;
   final UpdateCategoryUseCase updateCategoryUseCase;
+  final LogoutUseCase logoutUseCase;
 
   HomeUseCase(
     this.listProductItemUseCase,
@@ -22,6 +25,7 @@ class HomeUseCase {
     this.deleteCategoryUseCase,
     this.createCategoryUseCase,
     this.updateCategoryUseCase,
+    this.logoutUseCase,
   );
 }
 
@@ -77,5 +81,18 @@ class UpdateCategoryUseCase
   FutureOr<ApiResponse> execute(CategoryRequestEntity input) async {
     final result = await homeRepository.updateCategory(input);
     return result;
+  }
+}
+
+class LogoutUseCase extends NoInputUseCase<bool> {
+  @override
+  Future<bool> execute() async {
+    try {
+      final authBox = await Hive.openBox(HiveBoxNames.auth);
+      await authBox.put(HiveKeys.token, '');
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

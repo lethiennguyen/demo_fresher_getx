@@ -12,6 +12,7 @@ import 'package:bot_toast/bot_toast.dart';
 
 class BaseGetxController extends GetxController {
   final isShowLoading = false.obs;
+  final isShowButtonLoading = false.obs;
   RxBool isKeyBoardShow = false.obs;
   String errorContent = '';
   final baseRequestController = Get.find<BaseConnectAPI>();
@@ -29,6 +30,14 @@ class BaseGetxController extends GetxController {
 
   void hideLoading() {
     isShowLoading.value = false;
+  }
+
+  void showButtonLoading() {
+    isShowButtonLoading.value = true;
+  }
+
+  void hideButtonLoading() {
+    isShowButtonLoading.value = false;
   }
 
   void showLoadingOverlay() {

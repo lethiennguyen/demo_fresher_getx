@@ -16,7 +16,7 @@ class LoginPage extends BaseGetPage<LoginController> {
   Widget buildPage(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorWhite,
-      body: formLogin(controller),
+      body: Center(child: formLogin(controller)),
     );
   }
 }

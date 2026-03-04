@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
+import '../../../../core/core.src.dart';
 import '../../../../shared/widgets/show_popup.dart';
 import '../../../detail/domain/domain.src.dart';
 import '../../../detail/presentation/event/event.src.dart';
@@ -46,8 +47,13 @@ class HomeController extends BaseGetxController {
   @override
   void onInit() async {
     super.onInit();
-    _sub = EventBusUtils().on<DeleteProductEvent>().listen((event) {
-      onRefresh();
+    _sub = EventBusUtils().on().listen((event) {
+      if (event is DeleteProductEvent) {
+        onRefresh();
+      }
+      if (event is CreateCategoryEvent) {
+        fetchCategory();
+      }
     });
 
     fetchCategory();
@@ -71,28 +77,39 @@ class HomeController extends BaseGetxController {
     }
   }
 
+  Future<void> loadDataCategory() async {
+    showButtonLoading();
+    await fetchCategory();
+    hideButtonLoading();
+  }
+
   Future<void> createCategory() async {
-    showLoadingOverlay();
+    showButtonLoading();
     try {
       final entity = CategoryRequestEntity(
         name: categoryCtrl.text.trim(),
       );
       final result = await useCase.createCategoryUseCase.execute(entity);
       if (result.data != null) {
-        fetchCategory();
+        await fetchCategory();
         return;
       }
       UtilWidget.showSnackBar(
         title: LocaleKeys.notification_title.tr,
         message: result.message ?? "Thêm danh mục không thành công",
       );
+    } catch (e) {
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: "Thêm danh mục không thành công",
+      );
     } finally {
-      hideLoadingOverlay();
+      hideButtonLoading();
     }
   }
 
   Future<void> updateCategory() async {
-    showLoadingOverlay();
+    showButtonLoading();
     try {
       final entity = CategoryRequestEntity(
         id: categorySelected.value?.id,
@@ -100,15 +117,20 @@ class HomeController extends BaseGetxController {
       );
       final result = await useCase.updateCategoryUseCase.execute(entity);
       if (result.data != null) {
-        categorySelected.value!.name = categoryCtrl.text.trim();
+        await fetchCategory();
         return;
       }
       UtilWidget.showSnackBar(
         title: LocaleKeys.notification_title.tr,
         message: result.message ?? "Cập nhật danh mục không thành công",
       );
+    } catch (e) {
+      UtilWidget.showSnackBar(
+        title: LocaleKeys.notification_title.tr,
+        message: "Cập nhật danh mục không thành công",
+      );
     } finally {
-      hideLoadingOverlay();
+      hideButtonLoading();
     }
   }
 
@@ -131,9 +153,9 @@ class HomeController extends BaseGetxController {
     refreshController.loadComplete();
   }
 
-  Future<void> fetchProducts() async {
+  Future<void> fetchProducts({int? categoryId}) async {
     final entity = ListProductRequestEntity(
-      categoryId: categorySelected.value?.id,
+      categoryId: categoryId,
       keyword: inputSearchCtrl.text,
       page: pageIndex.value,
       pageSize: pageSize.value,
@@ -162,22 +184,24 @@ class HomeController extends BaseGetxController {
   }
 
   void editCategory() {
-    if (categorySelected.value == null) {
-      errorCategory.value = "Hãy chọn danh mục để chỉnh sửa";
-      return;
-    }
-
-    errorCategory.value = '';
     isEditCategory.value = !isEditCategory.value;
+    errorCategory.value = '';
   }
 
   void showDialogUpdateCategory() {
-    categoryCtrl.text = categorySelected.value?.name ?? '';
+    if (categorySelected.value == null) {
+      errorCategory.value = "Hãy chọn danh mục để cập nhật";
+      return;
+    }
+    if (categorySelected.value?.name == null) {
+      categoryCtrl.text = categorySelected.value?.name ?? '';
+    }
     ShowPopup.showDiaLogTextField(
       "Cập nhật danh mục",
       "Lưu",
       onConfirm: () {
         updateCategory();
+        Get.back();
       },
       hintText: "Danh mục mới",
       isActiveBack: true,
@@ -188,10 +212,11 @@ class HomeController extends BaseGetxController {
 
   void showDialogCreateCategory() {
     ShowPopup.showDiaLogTextField(
-      "Cập nhật danh mục",
+      "Tạo danh mục",
       "Lưu",
       onConfirm: () {
         createCategory();
+        Get.back();
       },
       hintText: "Danh mục mới",
       isActiveBack: true,
@@ -200,42 +225,53 @@ class HomeController extends BaseGetxController {
     );
   }
 
-  Future<void> fillerCategory() async {
+  Future<void> fillerCategory({int? categoryId}) async {
     showLoading();
     pageIndex.value = 1;
     productList.clear();
-    await fetchProducts();
+    await fetchProducts(categoryId: categoryId);
     hideLoading();
   }
 
   Future<void> deleteProduct({int? id}) async {
-    final entity = DeleteProductEntity(id: id);
-    final response = await useCase.deleteProductUseCase.execute(entity);
-    if (response.data!) {
-      UtilWidget.showSnackBar(
-        title: LocaleKeys.notification_title.tr,
-        message: LocaleKeys.add_tasks_delete_success.tr,
-      );
-      onRefresh();
-    } else {
-      UtilWidget.showSnackBar(
-          title: LocaleKeys.notification_title.tr, message: "Xóa thất bại");
+    showLoading();
+    try {
+      final entity = DeleteProductEntity(id: id);
+      final response = await useCase.deleteProductUseCase.execute(entity);
+      if (response.data!) {
+        UtilWidget.showSnackBar(
+          title: LocaleKeys.notification_title.tr,
+          message: LocaleKeys.add_tasks_delete_success.tr,
+        );
+        onRefresh();
+      } else {
+        UtilWidget.showSnackBar(
+            title: LocaleKeys.notification_title.tr,
+            message: response.message ?? "Xóa thất bại");
+      }
+    } finally {
+      hideLoading();
     }
   }
 
   Future<void> deleteCategory() async {
-    final entity = DeleteCategoryEntity(id: categorySelected.value?.id);
-    final response = await useCase.deleteCategoryUseCase.execute(entity);
-    if (response.data!) {
-      UtilWidget.showSnackBar(
-        title: LocaleKeys.notification_title.tr,
-        message: "Xóa danh mục thành công",
-      );
-      fetchCategory();
-    } else {
-      UtilWidget.showSnackBar(
+    showButtonLoading();
+    try {
+      final entity = DeleteCategoryEntity(id: categorySelected.value?.id);
+      final response = await useCase.deleteCategoryUseCase.execute(entity);
+      if (response.data!) {
+        UtilWidget.showSnackBar(
           title: LocaleKeys.notification_title.tr,
-          message: response.message ?? "Xóa thất bại");
+          message: "Xóa danh mục thành công",
+        );
+        await fetchCategory();
+      } else {
+        UtilWidget.showSnackBar(
+            title: LocaleKeys.notification_title.tr,
+            message: response.message ?? "Xóa thất bại");
+      }
+    } finally {
+      hideButtonLoading();
     }
   }
 
@@ -244,11 +280,25 @@ class HomeController extends BaseGetxController {
       errorCategory.value = "Hãy chọn danh mục để xóa";
       return;
     }
-    ShowPopup.showDiaLogConfirm("Xóa danh mục", "Bạn có muỗn xóa không", () {
-      Get.back();
-    }, () {
-      deleteCategory();
-    });
+    UtilWidget.showConfirmDialog(
+      title: "Xóa danh mục",
+      subtitle: "Bạn có muỗn xóa không",
+      typeAction: AppConst.actionFail,
+      onCancel: () => Get.back(),
+      onConfirm: () {
+        Get.back();
+        deleteCategory();
+      },
+    );
+  }
+
+  void logout() async {
+    final result = await useCase.logoutUseCase.execute();
+    if (result) {
+      Get.offAllNamed(
+        AppRouter.routerLogin,
+      );
+    }
   }
 
   void onSearchChanged() {

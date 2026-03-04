@@ -30,7 +30,7 @@ class CategoriesDetailUseCase extends NoInputUseCase<List<CategoriesEntity>> {
   @override
   FutureOr<List<CategoriesEntity>> execute() async {
     final result = await homeRepository.categories();
-    return result.data!;
+    return result.data ?? [];
   }
 }
 

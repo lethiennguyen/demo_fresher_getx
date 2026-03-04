@@ -41,6 +41,9 @@ Widget _buildFilter(HomeController controller) {
       onEdit: () {
         controller.editCategory();
       },
+      onReload: () {
+        controller.loadDataCategory();
+      },
       body: _buildBodyFilter(controller),
       widgetConfirm: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,10 +53,11 @@ Widget _buildFilter(HomeController controller) {
               text: controller.errorCategory.value,
               color: AppColors.overdueColor,
             ),
-          sdsSBHeight16,
+          sdsSBHeight4,
           controller.isEditCategory.value
               ? _buildButtonEditCategory(controller)
               : _buildButtonFilter(controller),
+          sdsSBHeight4
         ],
       ),
     ),
@@ -62,69 +66,74 @@ Widget _buildFilter(HomeController controller) {
 
 Widget _buildBodyFilter(HomeController controller) {
   return Obx(() {
+    if (controller.isShowButtonLoading.value) {
+      return _buildSkeletonCategory();
+    }
     return SingleChildScrollView(
-      child: Wrap(
-        spacing: 13,
-        runSpacing: 13,
-        children: [
-          ...controller.listCategory.map((item) {
-            final selected = controller.categorySelected.value?.id == item.id;
+      child: Center(
+        child: Wrap(
+          spacing: AppDimens.padding18,
+          runSpacing: 13,
+          children: [
+            ...controller.listCategory.map((item) {
+              final selected = controller.categorySelected.value?.id == item.id;
 
-            return GestureDetector(
-              onTap: () {
-                controller.categorySelected.value =
-                    controller.categorySelected.value?.id == item.id
-                        ? null
-                        : item;
+              return GestureDetector(
+                onTap: () {
+                  controller.categorySelected.value =
+                      controller.categorySelected.value?.id == item.id
+                          ? null
+                          : item;
 
-                controller.errorCategory.value = '';
-              },
-              child: Container(
-                height: AppDimens.height35,
-                width: AppDimens.sizeIconBig,
-                decoration: BoxDecoration(
-                  border: Border.all(
+                  controller.errorCategory.value = '';
+                },
+                child: Container(
+                  height: AppDimens.height35,
+                  width: AppDimens.sizeIconBig,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: selected ? AppColors.mainColors : AppColors.grey,
+                      width: 0.5,
+                    ),
+                    borderRadius: BorderRadius.circular(AppDimens.radius12),
                     color: selected
-                        ? AppColors.mainColors
-                        : AppColors.bgKeyBoardbtn,
-                    width: 0.5,
+                        ? AppColors.basicWhite
+                        : AppColors.greyItemColor,
                   ),
-                  borderRadius: BorderRadius.circular(AppDimens.radius12),
-                  color: selected ? AppColors.basicWhite : AppColors.grey2,
-                ),
-                child: Center(
-                  child: TextUtils(
-                    text: item.name ?? '',
-                    color:
-                        selected ? AppColors.mainColors : AppColors.basicBlack,
-                    availableStyle: StyleEnum.t14Bold,
+                  child: Center(
+                    child: TextUtils(
+                      text: item.name ?? '',
+                      color: selected
+                          ? AppColors.mainColors
+                          : AppColors.basicBlack,
+                      availableStyle: StyleEnum.t14Bold,
+                    ),
                   ),
                 ),
-              ),
-            );
-          }),
-          GestureDetector(
-            onTap: () {
-              controller.showDialogCreateCategory();
-            },
-            child: UtilWidget.baseCard(
-              height: AppDimens.height35,
-              width: AppDimens.height45,
-              border: Border.all(
-                color: AppColors.mainColors,
-                width: 0.8,
-              ),
-              borderRadius: AppDimens.radius12,
-              backgroundColor: AppColors.basicWhite,
-              child: Center(
+              );
+            }),
+            GestureDetector(
+              onTap: () {
+                controller.showDialogCreateCategory();
+              },
+              child: UtilWidget.baseCard(
+                height: AppDimens.height35,
+                width: AppDimens.height45,
+                padding: EdgeInsets.zero,
+                border: Border.all(
+                  color: AppColors.mainColors,
+                  width: 0.8,
+                ),
+                borderRadius: AppDimens.radius12,
+                backgroundColor: AppColors.basicWhite,
                 child: Icon(
                   Icons.add,
                   color: AppColors.mainColors,
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   });
@@ -136,11 +145,13 @@ Widget _buildButtonFilter(HomeController controller) {
     textConfirm: LocaleKeys.button_confirm.tr,
     onCancel: () {
       controller.categorySelected.value = null;
-      controller.fillerCategory();
+      controller.fillerCategory(
+          categoryId: controller.categorySelected.value?.id);
       controller.showFilter.value = false;
     },
     onConfirm: () {
-      controller.fillerCategory();
+      controller.fillerCategory(
+          categoryId: controller.categorySelected.value?.id);
       controller.showFilter.value = false;
     },
   );
@@ -150,38 +161,38 @@ Widget _buildButtonEditCategory(HomeController controller) {
   return Row(
     children: [
       Expanded(
-        flex: 2,
+        flex: 3,
         child: ButtonUtils.buildButton(
           "Hủy",
           () {
-            controller.isEditCategory.value = false;
+            controller.editCategory();
           },
           backgroundColor: AppColors.basicWhite,
           showLoading: true,
           colorText: AppColors.mainColors,
           height: AppDimens.btnMediumTbSmall,
-          width: 40,
           borderRadius: BorderRadius.circular(AppDimens.radius12),
-          border: Border.all(color: AppColors.mainColors),
+          //border: Border.all(color: AppColors.mainColors),
         ),
       ),
       sdsSBWidth60,
       Expanded(
-        flex: 6,
+        flex: 7,
         child: Row(
           children: [
             Expanded(
-              flex: 2,
-              child: ButtonUtils.buildButton(
-                LocaleKeys.task_remove.tr,
-                () => controller.showDialogDelete(),
-                backgroundColor: AppColors.basicWhite,
-                colorText: AppColors.overdueColor,
-                height: AppDimens.btnMediumTbSmall,
-                borderRadius: BorderRadius.circular(AppDimens.radius12),
-                border: Border.all(color: AppColors.overdueColor),
-              ),
-            ),
+                flex: 1,
+                child: ButtonUtils.buildButton(
+                  "Xóa",
+                  () => controller.showDialogDelete(),
+                  padding: EdgeInsets.zero,
+                  height: AppDimens.btnMediumTbSmall,
+                  width: AppDimens.btnMediumTbSmall,
+                  border: Border.all(color: AppColors.mainColors, width: 2),
+                  backgroundColor: AppColors.basicWhite,
+                  colorText: AppColors.mainColors,
+                  borderRadius: BorderRadius.circular(AppDimens.radius12),
+                )),
             sdsSBWidth12,
             Expanded(
               flex: 3,
@@ -213,6 +224,32 @@ Widget _buildSkeletonListProduct() {
   );
 }
 
+Widget _buildSkeletonCategory() {
+  return Skeletonizer(
+    enabled: true,
+    child: Center(
+      child: Wrap(
+        spacing: AppDimens.padding18,
+        runSpacing: 13,
+        children: List.generate(
+          10,
+          (index) => Container(
+            height: AppDimens.height35,
+            width: AppDimens.sizeIconBig,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(AppDimens.radius12),
+              color: AppColors.greyItemColor,
+            ),
+            child: Center(
+              child: TextUtils(text: "Category"),
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
 Widget _buildListProduct(HomeController controller) {
   return Obx(() {
     if (controller.isShowLoading.value) {
@@ -231,6 +268,11 @@ Widget _buildListProduct(HomeController controller) {
         itemCount: controller.productList.length +
             (controller.isShowLoading.value ? 1 : 0),
         itemBuilder: (context, index) {
+          if (index == controller.productList.length) {
+            return Center(
+              child: TextUtils(text: "Không có dữ liệu"),
+            );
+          }
           return _buildProductCard(
             controller.productList[index],
             onTap: () {
@@ -274,15 +316,13 @@ Widget _buildFilterStatus(HomeController controller) {
             },
           ).paddingSymmetric(vertical: AppDimens.padding2),
         ),
-        IconButton(
-            onPressed: () {
-              controller.showFilter.value = !controller.showFilter.value;
-            },
-            icon: const Icon(
-              size: AppDimens.sizeIconSpinner,
-              Icons.filter_alt,
-              color: AppColors.mainColors,
-            )),
+        Obx(
+          () => ButtonUtils.buildFilterButton(
+              onPressed: () {
+                controller.showFilter.value = !controller.showFilter.value;
+              },
+              selected: controller.showFilter.value),
+        )
       ],
     ).paddingSymmetric(horizontal: AppDimens.padding6),
   );
@@ -424,7 +464,7 @@ Widget _buildProductCard(ProductEntity entity,
                     UtilWidget.showConfirmDialog(
                       title: LocaleKeys.add_tasks_delete_task.tr,
                       subtitle: LocaleKeys.add_tasks_confirm_delete_task.tr,
-                      typeAction: AppConst.actionNotification,
+                      typeAction: AppConst.actionFail,
                       onCancel: () => Get.back(),
                       onConfirm: onDelete,
                     );

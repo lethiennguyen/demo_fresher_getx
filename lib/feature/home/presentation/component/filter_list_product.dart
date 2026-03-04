@@ -10,6 +10,7 @@ class FilterListProduct {
     Widget? body,
     Widget? widgetConfirm,
     VoidCallback? onEdit,
+    VoidCallback? onReload,
     String? title,
     String? edit,
   }) {
@@ -19,7 +20,7 @@ class FilterListProduct {
           color: AppColors.basicWhite,
           border: Border(
             bottom: BorderSide(
-              color: AppColors.textColorGrey,
+              color: AppColors.grey,
               width: 0.5,
             ),
           )),
@@ -31,9 +32,22 @@ class FilterListProduct {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              TextUtils(
-                text: title ?? "",
-                availableStyle: StyleEnum.t16Bold,
+              GestureDetector(
+                onTap: onReload,
+                child: Row(
+                  children: [
+                    TextUtils(
+                      text: title ?? "",
+                      availableStyle: StyleEnum.t16Bold,
+                    ),
+                    sdsSBWidth4,
+                    Icon(
+                      Icons.loop_sharp,
+                      color: AppColors.mainColors,
+                      size: AppDimens.sizeIconSmall,
+                    ),
+                  ],
+                ),
               ),
               GestureDetector(
                 onTap: onEdit,
@@ -59,9 +73,11 @@ class FilterListProduct {
           Expanded(child: body ?? SizedBox()),
           sdsSBHeight15,
           widgetConfirm ?? SizedBox(),
-          sdsSBHeight15,
         ],
-      ).paddingAll(AppDimens.padding16),
+      ).paddingOnly(
+          left: AppDimens.padding16,
+          right: AppDimens.padding16,
+          top: AppDimens.padding16),
     );
   }
 }

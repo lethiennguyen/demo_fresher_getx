@@ -15,8 +15,11 @@ class SplashPage extends BaseGetPage<AppController> {
     return Scaffold(
       backgroundColor: AppColors.colorWhite,
       body: Center(
-        child: SvgPicture.asset(Assets.ASSETS_ICONS_ICON_APPEAR_EYE_SVG,
-            width: 158, height: 37),
+        child: TextUtils(
+          text: "DEMO GETX",
+          availableStyle: StyleEnum.t28Bold,
+          color: AppColors.mainColors,
+        ),
       ),
     );
   }

@@ -84,7 +84,7 @@ class ButtonUtils {
     bool isLoading = false,
     bool visibleTextCenter = false,
     bool showLoading = true,
-    String? icon,
+    IconData? icon,
     String? iconPng,
     Color? iconColor,
     double? iconSize,
@@ -159,16 +159,16 @@ class ButtonUtils {
                   alignment: Alignment.centerLeft,
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        icon,
-                        width: iconSize,
-                        height: iconSize,
-                      ).paddingOnly(right: AppDimens.padding16),
-                      // Icon(
+                      // SvgPicture.asset(
                       //   icon,
-                      //   size: iconSize,
-                      //   color: iconColor,
-                      // ),
+                      //   width: iconSize,
+                      //   height: iconSize,
+                      // ).paddingOnly(right: AppDimens.padding16),
+                      Icon(
+                        icon,
+                        size: iconSize,
+                        color: iconColor,
+                      ),
                       TextUtils(
                         text: btnTitle,
                         availableStyle: StyleEnum.t14Bold,
@@ -377,6 +377,7 @@ class ButtonUtils {
             const Icon(
               Icons.filter_alt,
               color: AppColors.colorWhite,
+              size: AppDimens.sizeIcon,
             ),
             if (selected)
               const Positioned(

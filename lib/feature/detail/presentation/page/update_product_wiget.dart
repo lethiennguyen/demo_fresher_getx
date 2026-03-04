@@ -33,54 +33,53 @@ Widget buildImagePicker(DetailProductController controller) {
     borderType: BorderType.RRect,
     radius: const Radius.circular(12),
     child: GestureDetector(
-      onTap: () {
-        controller.upImage();
-      },
-      child: controller.isImage.value
-          ? Stack(
-              children: [
-                buildDetailImage(controller.url.value),
-
-                /// Loading overlay
-                if (controller.isUploadingImage.value)
-                  Positioned.fill(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.basicWhite,
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Center(
-                        child: CircularProgressIndicator(
-                          color: AppColors.mainColors,
+        onTap: () {
+          controller.upImage();
+        },
+        child: Stack(
+          children: [
+            controller.isImage.value
+                ? buildDetailImage(controller.url.value)
+                : Container(
+                    width: double.infinity,
+                    height: 150,
+                    alignment: Alignment.center,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        CircleAvatar(
+                          radius: 25,
+                          backgroundColor: Colors.blue,
+                          child: Icon(Icons.image, color: Colors.white),
                         ),
-                      ),
-                    ),
-                  )
-              ],
-            )
-          : Container(
-              width: double.infinity,
-              height: 150,
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircleAvatar(
-                    radius: 25,
-                    backgroundColor: Colors.blue,
-                    child: Icon(Icons.image, color: Colors.white),
+                        SizedBox(height: 10),
+                        Text(
+                          "Thêm ảnh",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    )),
+
+            /// Loading overlay
+            if (controller.isUploadingImage.value)
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.basicWhite,
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  SizedBox(height: 10),
-                  Text(
-                    "Thêm ảnh",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
+                  child: const Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.mainColors,
                     ),
                   ),
-                ],
-              )),
-    ),
+                ),
+              )
+          ],
+        )),
   );
 }
 
@@ -110,7 +109,7 @@ Widget buildNameProduct(DetailProductController controller) {
     title: "Tên sản phẩm",
     borderRadius: AppDimens.borderRadiusBig,
     paddingBottom: 0,
-    isValidate: true,
+    isValidate: false,
     isValidateText: true,
     onChanged: (_) {},
   ).paddingSymmetric(vertical: AppDimens.padding2);
@@ -139,8 +138,9 @@ Widget buildPriceProduct(DetailProductController controller) {
     textEditingController: controller.inputPriceCtrl,
     currentNode: controller.fcsPrice,
     title: "Giá sản phẩm",
-    hintText: "Giá sản phẩm",
+    hintText: "Giá sản phẩm (VND)",
     borderRadius: AppDimens.borderRadiusBig,
+    textInputType: TextInputType.number,
     paddingBottom: 0,
     isValidate: false,
     isValidateText: true,
@@ -157,6 +157,7 @@ Widget buildStockProduct(DetailProductController controller) {
     title: "Số lượng sản phẩm",
     hintText: "Số lượng sản phẩm",
     borderRadius: AppDimens.borderRadiusBig,
+    textInputType: TextInputType.number,
     paddingBottom: 0,
     isValidate: false,
     isValidateText: true,
@@ -189,6 +190,9 @@ Widget buildCategoryProduct(DetailProductController controller) {
             selectedValue == null ? AppColors.basicGrey5 : AppColors.basicWhite,
         value: selectedValue?.name ?? "Danh mục",
         onTap: () async {
+          if (controller.listCategory.isEmpty) {
+            await controller.fetchCategory();
+          }
           final result = await Get.bottomSheet(
             buildBottomSheetCategoryProduct(controller),
             isScrollControlled: true,
@@ -203,7 +207,8 @@ Widget buildCategoryProduct(DetailProductController controller) {
 
 Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
   return Obx(
-    () => SingleChildScrollView(
+    () => SizedBox(
+      height: Get.height * 0.7,
       child: UtilWidget.buildSelectionBottomSheet(
         title: "Chọn danh mục",
         items: controller.listCategory,
@@ -215,6 +220,7 @@ Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
             "Lưu",
             onConfirm: () {
               controller.createCategory();
+              Get.back();
             },
             hintText: "Danh mục mới",
             isActiveBack: true,
@@ -222,6 +228,7 @@ Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
             controller.fcsCategory,
           );
         },
+        isLoading: controller.isShowLoading.value,
         checkSelected: (item) => controller.selectedCategory.value == item,
         itemTitleMapper: (item) => item.name ?? '',
         onItemSelected: (item) => controller.selectedCategory.value = item,

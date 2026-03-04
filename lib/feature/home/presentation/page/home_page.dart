@@ -2,6 +2,8 @@ import 'package:demo_fresher_getx/feature/home/domain/entities/product_entity.da
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:shimmer/shimmer.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../../../../core/base/widget_base/base_get_page.dart';
 import '../../../../core/core.src.dart';
@@ -26,12 +28,17 @@ class HomePage extends BaseGetPage<HomeController> {
           textColor: AppColors.mainColors,
           showBackButton: false,
           actions: [
-            buildIconButton(
-                () => Get.offAllNamed(
-                      AppRouter.routerLogin,
-                    ),
-                icon: Icons.login_outlined,
-                isIcon: true)
+            buildIconButton(() {
+              UtilWidget.showConfirmDialog(
+                title: LocaleKeys.menu_logout.tr,
+                subtitle: LocaleKeys.menu_contentLogout.tr,
+                typeAction: AppConst.actionNotification,
+                onCancel: () => Get.back(),
+                onConfirm: () {
+                  controller.logout();
+                },
+              );
+            }, icon: Icons.login_outlined, isIcon: true)
           ]),
       body: buildHomeBody(controller),
       floatingActionButton: buildFloatingActionButton(controller),

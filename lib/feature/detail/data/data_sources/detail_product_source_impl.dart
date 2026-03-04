@@ -22,7 +22,7 @@ class DetailProductSourceImpl extends BaseRepositoryCl
       isQueryParametersPost: false,
       isToken: true,
     );
-    return ApiResponse<bool>.fromJson(
+    return ApiResponse.fromJson(
       res.data,
     );
   }

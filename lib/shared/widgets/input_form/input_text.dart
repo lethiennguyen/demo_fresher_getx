@@ -146,6 +146,7 @@ class _SDSInputTextState extends State<SDSInputText> with FormatterEnum {
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 minHeight: widget.inputTextFormModel.heightInput ?? 56,
+                maxHeight: 100,
               ),
               child: TextFormField(
                 cursorColor:

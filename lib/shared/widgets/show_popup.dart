@@ -160,7 +160,7 @@ class ShowPopup {
         height: height ?? 40,
         decoration: BoxDecoration(
           color: color ?? const Color(0xffF24E1E),
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(AppDimens.radius12),
         ),
         child: Center(
           child: Text(
@@ -234,6 +234,7 @@ class ShowPopup {
     bool isActiveBack = true,
     String? hintText,
     VoidCallback? onConfirm,
+    bool isShowLoading = false,
     String? Function(String?)? validator,
   }) {
     _showDialog(
@@ -272,28 +273,55 @@ class ShowPopup {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _baseButton(
-                    () {},
+                  // _baseButton(
+                  //   () {},
+                  //   LocaleKeys.button_cancel.tr,
+                  //   color: const Color(0xffF24E1E),
+                  //   textColor: Colors.white,
+                  //   witdh: 100,
+                  //   fontSize: 14,
+                  //   fontWeight: FontWeight.w600,
+                  // ),
+                  ButtonUtils.buildButton(
                     LocaleKeys.button_cancel.tr,
-                    color: const Color(0xffF24E1E),
-                    textColor: Colors.white,
-                    witdh: 100,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    () {
+                      Get.back();
+                    },
+                    backgroundColor: AppColors.mainColors,
+                    isLoading: false,
+                    showLoading: true,
+                    colorText: AppColors.basicWhite,
+                    width: 100,
+                    height: 40,
+                    borderRadius: BorderRadius.circular(AppDimens.radius12),
                   ),
                   sdsSBHeight20,
-                  _baseButton(
+                  ButtonUtils.buildButton(
+                    buttonText,
                     onConfirm ??
                         () {
                           Get.back();
                         },
-                    buttonText,
-                    color: const Color(0xffF24E1E),
-                    textColor: Colors.white,
-                    witdh: 100,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                    backgroundColor: AppColors.mainColors,
+                    isLoading: isShowLoading,
+                    showLoading: true,
+                    colorText: AppColors.basicWhite,
+                    width: 100,
+                    height: 40,
+                    borderRadius: BorderRadius.circular(AppDimens.radius12),
                   ),
+                  // _baseButton(
+                  //   onConfirm ??
+                  //       () {
+                  //         Get.back();
+                  //       },
+                  //   buttonText,
+                  //   color: const Color(0xffF24E1E),
+                  //   textColor: Colors.white,
+                  //   witdh: 100,
+                  //   fontSize: 14,
+                  //   fontWeight: FontWeight.w600,
+                  // ),
                 ],
               ),
             ],
