@@ -28,6 +28,7 @@ class HomeController extends BaseGetxController {
   Rx<FocusNode> fcsCategory = FocusNode().obs;
   Rx<FocusNode> fcsSearch = FocusNode().obs;
   Rx<bool> showFilter = false.obs;
+  Rx<bool> isFilterCategory = false.obs;
 
   final refreshController = RefreshController();
   RxBool isLoadMore = false.obs;
@@ -233,6 +234,13 @@ class HomeController extends BaseGetxController {
     hideLoading();
   }
 
+  void resetFilter() {
+    categorySelected.value = null;
+    fillerCategory(categoryId: categorySelected.value?.id);
+    showFilter.value = false;
+    isFilterCategory.value = false;
+  }
+
   Future<void> deleteProduct({int? id}) async {
     showLoading();
     try {
@@ -315,8 +323,8 @@ class HomeController extends BaseGetxController {
 
   Future<void> searchTab() async {
     showLoading();
-    pageIndex.value = 1;
-    productList.clear();
+    pageSize.value = 1;
+    pageSize.value = 10;
     enablePullup.value = true;
     refreshController.resetNoData();
     await fetchProducts();

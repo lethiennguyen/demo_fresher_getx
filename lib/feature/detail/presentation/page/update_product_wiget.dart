@@ -2,25 +2,31 @@ part of 'detail_product_page.dart';
 
 Widget _buildBody(DetailProductController controller) {
   return SingleChildScrollView(
-    child: Form(
-      key: controller.formKey,
-      child: Column(
-        children: [
-          buildImage(controller),
-          sdsSBHeight16,
-          buildNameProduct(controller),
-          sdsSBHeight16,
-          buildCodeProduct(controller),
-          sdsSBHeight16,
-          buildPriceProduct(controller),
-          sdsSBHeight16,
-          buildStockProduct(controller),
-          sdsSBHeight16,
-          buildCategoryProduct(controller),
-          sdsSBHeight16,
-          buildDescriptionProduct(controller),
-        ],
-      ).paddingAll(AppDimens.padding16),
+    child: GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Form(
+        key: controller.formKey,
+        child: Column(
+          children: [
+            buildImage(controller),
+            sdsSBHeight16,
+            buildNameProduct(controller),
+            sdsSBHeight16,
+            buildCodeProduct(controller),
+            sdsSBHeight16,
+            buildPriceProduct(controller),
+            sdsSBHeight16,
+            buildStockProduct(controller),
+            sdsSBHeight16,
+            buildCategoryProduct(controller),
+            sdsSBHeight16,
+            buildDescriptionProduct(controller),
+          ],
+        ).paddingAll(AppDimens.padding16),
+      ),
     ),
   );
 }
@@ -46,16 +52,16 @@ Widget buildImagePicker(DetailProductController controller) {
                     alignment: Alignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        CircleAvatar(
+                      children: [
+                        const CircleAvatar(
                           radius: 25,
                           backgroundColor: Colors.blue,
                           child: Icon(Icons.image, color: Colors.white),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
-                          "Thêm ảnh",
-                          style: TextStyle(
+                          LocaleKeys.detail_add_image.tr,
+                          style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w500,
                           ),
@@ -105,8 +111,8 @@ Widget buildNameProduct(DetailProductController controller) {
     heightInput: AppDimens.height45,
     textEditingController: controller.inputNameCtrl,
     currentNode: controller.fcsName,
-    hintText: "Tên sản phẩm",
-    title: "Tên sản phẩm",
+    hintText: LocaleKeys.detail_product_name.tr,
+    title: LocaleKeys.detail_product_name.tr,
     borderRadius: AppDimens.borderRadiusBig,
     paddingBottom: 0,
     isValidate: false,
@@ -121,8 +127,8 @@ Widget buildCodeProduct(DetailProductController controller) {
     heightInput: AppDimens.height45,
     textEditingController: controller.inputCodeCtrl,
     currentNode: controller.fcsCode,
-    hintText: "Mã code sản phẩm",
-    title: "Mã code sản phẩm",
+    hintText: LocaleKeys.detail_product_code.tr,
+    title: LocaleKeys.detail_product_code.tr,
     borderRadius: AppDimens.borderRadiusBig,
     paddingBottom: 0,
     isValidate: false,
@@ -137,8 +143,8 @@ Widget buildPriceProduct(DetailProductController controller) {
     heightInput: AppDimens.height45,
     textEditingController: controller.inputPriceCtrl,
     currentNode: controller.fcsPrice,
-    title: "Giá sản phẩm",
-    hintText: "Giá sản phẩm (VND)",
+    title: LocaleKeys.detail_product_price.tr,
+    hintText: LocaleKeys.detail_product_price_hint.tr,
     borderRadius: AppDimens.borderRadiusBig,
     textInputType: TextInputType.number,
     paddingBottom: 0,
@@ -154,8 +160,8 @@ Widget buildStockProduct(DetailProductController controller) {
     heightInput: AppDimens.height45,
     textEditingController: controller.inputStockCtrl,
     currentNode: controller.fcsStock,
-    title: "Số lượng sản phẩm",
-    hintText: "Số lượng sản phẩm",
+    title: LocaleKeys.detail_product_stock.tr,
+    hintText: LocaleKeys.detail_product_stock.tr,
     borderRadius: AppDimens.borderRadiusBig,
     textInputType: TextInputType.number,
     paddingBottom: 0,
@@ -167,28 +173,29 @@ Widget buildStockProduct(DetailProductController controller) {
 
 Widget buildDescriptionProduct(DetailProductController controller) {
   return IconLeadingTextField(
-    label: "Mô tả",
+    label: LocaleKeys.detail_product_description.tr,
     controller: controller.descriptionCtrl,
     backgroundColor: AppColors.basicWhite,
+    padding: EdgeInsets.zero,
   );
 }
 
 Widget buildCategoryProduct(DetailProductController controller) {
   return Obx(() {
     final selectedValue = controller.selectedCategory.value;
-    final Color color =
-        selectedValue == null ? AppColors.basicGrey2 : AppColors.mainColors;
-    final Color textColor =
-        selectedValue == null ? AppColors.basicBlack : AppColors.mainColors;
+    // final Color color =
+    //     selectedValue == null ? AppColors.basicGrey2 : AppColors.mainColors;
+    // final Color textColor =
+    //     selectedValue == null ? AppColors.basicBlack : AppColors.mainColors;
     return UtilWidget.baseDropDownBottomSheetFilter(
         height: AppDimens.height45,
-        title: "Danh mục sản phẩm",
-        borderColor: color,
-        iconColor: textColor,
-        textColor: textColor,
+        title: LocaleKeys.detail_product_category.tr,
+        borderColor: AppColors.basicGrey2,
+        iconColor: AppColors.basicBlack,
+        textColor: AppColors.basicBlack,
         backgroundColor:
             selectedValue == null ? AppColors.basicGrey5 : AppColors.basicWhite,
-        value: selectedValue?.name ?? "Danh mục",
+        value: selectedValue?.name ?? LocaleKeys.home_category.tr,
         onTap: () async {
           if (controller.listCategory.isEmpty) {
             await controller.fetchCategory();
@@ -210,19 +217,19 @@ Widget buildBottomSheetCategoryProduct(DetailProductController controller) {
     () => SizedBox(
       height: Get.height * 0.7,
       child: UtilWidget.buildSelectionBottomSheet(
-        title: "Chọn danh mục",
+        title: LocaleKeys.detail_select_category.tr,
         items: controller.listCategory,
         isAddItem: true,
-        addItem: "Thêm danh mục +",
+        addItem: LocaleKeys.detail_add_category.tr,
         onTap: () {
           ShowPopup.showDiaLogTextField(
-            "Thêm Danh mục",
-            "Lưu",
+            LocaleKeys.detail_add_category_title.tr,
+            LocaleKeys.app_save.tr,
             onConfirm: () {
               controller.createCategory();
               Get.back();
             },
-            hintText: "Danh mục mới",
+            hintText: LocaleKeys.detail_new_category_hint.tr,
             isActiveBack: true,
             controller.inputCategoryCtrl,
             controller.fcsCategory,
@@ -254,10 +261,10 @@ Widget buildBottomBar(DetailProductController controller) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Spacer(),
+        const Spacer(),
         ButtonUtils.buildButton(
           width: 120,
-          "Lưu",
+          LocaleKeys.app_save.tr,
           () {
             if (controller.isEdit.value) {
               controller.upDateProduct();

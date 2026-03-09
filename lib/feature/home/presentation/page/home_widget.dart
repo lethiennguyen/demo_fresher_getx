@@ -36,8 +36,10 @@ Widget buildHomeBody(HomeController controller) {
 Widget _buildFilter(HomeController controller) {
   return Obx(
     () => FilterListProduct.fillter(
-      title: "Danh mục",
-      edit: "Chỉnh sửa",
+      title: LocaleKeys.home_category.tr,
+      edit: controller.isEditCategory.value
+          ? LocaleKeys.app_cancel.tr
+          : LocaleKeys.home_edit.tr,
       onEdit: () {
         controller.editCategory();
       },
@@ -141,18 +143,16 @@ Widget _buildBodyFilter(HomeController controller) {
 
 Widget _buildButtonFilter(HomeController controller) {
   return ButtonUtils.buildFooterButtons(
-    textCancel: "Thiết lập lại",
+    textCancel: LocaleKeys.home_reset.tr,
     textConfirm: LocaleKeys.button_confirm.tr,
     onCancel: () {
-      controller.categorySelected.value = null;
-      controller.fillerCategory(
-          categoryId: controller.categorySelected.value?.id);
-      controller.showFilter.value = false;
+      controller.resetFilter();
     },
     onConfirm: () {
       controller.fillerCategory(
           categoryId: controller.categorySelected.value?.id);
       controller.showFilter.value = false;
+      controller.isFilterCategory.value = true;
     },
   );
 }
@@ -162,18 +162,7 @@ Widget _buildButtonEditCategory(HomeController controller) {
     children: [
       Expanded(
         flex: 3,
-        child: ButtonUtils.buildButton(
-          "Hủy",
-          () {
-            controller.editCategory();
-          },
-          backgroundColor: AppColors.basicWhite,
-          showLoading: true,
-          colorText: AppColors.mainColors,
-          height: AppDimens.btnMediumTbSmall,
-          borderRadius: BorderRadius.circular(AppDimens.radius12),
-          //border: Border.all(color: AppColors.mainColors),
-        ),
+        child: SizedBox(),
       ),
       sdsSBWidth60,
       Expanded(
@@ -183,12 +172,12 @@ Widget _buildButtonEditCategory(HomeController controller) {
             Expanded(
                 flex: 1,
                 child: ButtonUtils.buildButton(
-                  "Xóa",
+                  LocaleKeys.home_delete.tr,
                   () => controller.showDialogDelete(),
                   padding: EdgeInsets.zero,
                   height: AppDimens.btnMediumTbSmall,
                   width: AppDimens.btnMediumTbSmall,
-                  border: Border.all(color: AppColors.mainColors, width: 2),
+                  border: Border.all(color: AppColors.mainColors, width: 1),
                   backgroundColor: AppColors.basicWhite,
                   colorText: AppColors.mainColors,
                   borderRadius: BorderRadius.circular(AppDimens.radius12),
@@ -197,7 +186,7 @@ Widget _buildButtonEditCategory(HomeController controller) {
             Expanded(
               flex: 3,
               child: ButtonUtils.buildButton(
-                "Cập nhật",
+                LocaleKeys.home_update.tr,
                 () {
                   controller.showDialogUpdateCategory();
                 },
@@ -270,7 +259,7 @@ Widget _buildListProduct(HomeController controller) {
         itemBuilder: (context, index) {
           if (index == controller.productList.length) {
             return Center(
-              child: TextUtils(text: "Không có dữ liệu"),
+              child: TextUtils(text: LocaleKeys.home_no_data.tr),
             );
           }
           return _buildProductCard(
@@ -321,7 +310,7 @@ Widget _buildFilterStatus(HomeController controller) {
               onPressed: () {
                 controller.showFilter.value = !controller.showFilter.value;
               },
-              selected: controller.showFilter.value),
+              selected: controller.isFilterCategory.value),
         )
       ],
     ).paddingSymmetric(horizontal: AppDimens.padding6),
@@ -448,7 +437,8 @@ Widget _buildProductCard(ProductEntity entity,
                               size: 13, color: AppColors.grey),
                           sdsSBWidth4,
                           TextUtils(
-                            text: "Kho: ${entity.stock ?? 0}",
+                            text: LocaleKeys.home_stock
+                                .trParams({'stock': '${entity.stock ?? 0}'}),
                             availableStyle: StyleEnum.t12Regular,
                             color: AppColors.grey,
                           ),

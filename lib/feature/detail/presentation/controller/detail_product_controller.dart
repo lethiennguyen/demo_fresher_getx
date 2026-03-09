@@ -208,7 +208,7 @@ class DetailProductController extends BaseGetxController {
     if (isUploadingImage.value) {
       UtilWidget.showSnackBar(
         title: LocaleKeys.notification_title.tr,
-        message: "Ảnh đang trong quá trình tải",
+        message: LocaleKeys.detail_image_uploading.tr,
       );
       return;
     }
@@ -269,7 +269,7 @@ class DetailProductController extends BaseGetxController {
     if (isUploadingImage.value) {
       UtilWidget.showSnackBar(
         title: LocaleKeys.notification_title.tr,
-        message: "Ảnh đang trong quá trình tải",
+        message: LocaleKeys.detail_image_uploading.tr,
       );
       return;
     }
@@ -324,7 +324,7 @@ class DetailProductController extends BaseGetxController {
 
   void onUpImage() {
     if (url.value.isEmpty) {
-      ShowPopup.showDialogNotificationError("Vui lòng chọn ảnh",
+      ShowPopup.showDialogNotificationError(LocaleKeys.detail_image_required.tr,
           code: AppConst.error500);
     }
   }
@@ -341,36 +341,36 @@ class DetailProductController extends BaseGetxController {
 
   String? validateName(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Vui lòng nhập tên sản phẩm";
+      return LocaleKeys.detail_validate_name_required.tr;
     }
     if (value.trim().length < 3) {
-      return "Tên phải có ít nhất 3 ký tự";
+      return LocaleKeys.detail_validate_name_min_length.tr;
     }
     return null;
   }
 
   String? validateCode(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Vui lòng nhập mã sản phẩm";
+      return LocaleKeys.detail_validate_code_required.tr;
     }
     if (value.trim().length < 3) {
-      return "Mã sản phẩm quá ngắn";
+      return LocaleKeys.detail_validate_code_min_length.tr;
     }
     return null;
   }
 
   String? validatePrice(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Vui lòng nhập giá sản phẩm";
+      return LocaleKeys.detail_validate_price_required.tr;
     }
 
     final price = double.tryParse(value.replaceAll(',', '').trim());
     if (price == null) {
-      return "Giá phải là số hợp lệ";
+      return LocaleKeys.detail_validate_price_invalid.tr;
     }
 
     if (price <= 0) {
-      return "Giá phải lớn hơn 0";
+      return LocaleKeys.detail_validate_price_min.tr;
     }
 
     return null;
@@ -378,16 +378,16 @@ class DetailProductController extends BaseGetxController {
 
   String? validateStock(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Vui lòng nhập số lượng";
+      return LocaleKeys.detail_validate_stock_required.tr;
     }
 
     final stock = int.tryParse(value.trim());
     if (stock == null) {
-      return "Số lượng phải là số nguyên";
+      return LocaleKeys.detail_validate_stock_invalid.tr;
     }
 
     if (stock < 0) {
-      return "Số lượng không được âm";
+      return LocaleKeys.detail_validate_stock_min.tr;
     }
 
     return null;
@@ -395,7 +395,7 @@ class DetailProductController extends BaseGetxController {
 
   String? validateCategory(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return "Vui lòng nhập danh mục";
+      return LocaleKeys.detail_validate_category_required.tr;
     }
     return null;
   }

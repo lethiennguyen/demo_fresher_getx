@@ -1684,16 +1684,9 @@ class UtilWidget {
           ),
           sdsSBHeight20,
           if (isAddItem)
-            ElevatedButton(
-              onPressed: onTap,
-              child: Center(
-                child: TextUtils(
-                  text: addItem,
-                  availableStyle: StyleEnum.t16Bold,
-                  color: AppColors.mainColors,
-                ),
-              ),
-            ),
+            ButtonUtils.buildButton(addItem, onTap ?? () {},
+                colorText: AppColors.mainColors,
+                backgroundColor: AppColors.basicWhite),
           sdsSBHeight20,
           ButtonUtils.buildButton(
             LocaleKeys.my_task_confirm.tr,

@@ -24,8 +24,8 @@ class HomePage extends BaseGetPage<HomeController> {
   Widget buildPage(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.colorWhite,
-      appBar: UtilWidget.buildAppBar("Danh sách",
-          textColor: AppColors.mainColors,
+      appBar: UtilWidget.buildAppBar(LocaleKeys.home_category.tr,
+          textColor: AppColors.basicBlack,
           showBackButton: false,
           actions: [
             buildIconButton(() {

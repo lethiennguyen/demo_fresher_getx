@@ -164,6 +164,24 @@ class LocaleKeys {
   static const app_addFaceId = 'app_addFaceId';
   static const app_attendanceHistory = 'app_attendanceHistory';
   static const app_addFaceNew = 'app_addFaceNew';
+  static const app_emailNotFound = 'app_emailNotFound';
+  static const app_otpHaveSentToEmail = 'app_otpHaveSentToEmail';
+  static const app_failedToSentOTP = 'app_failedToSentOTP';
+  static const app_successfullyVerifiedOTP = 'app_successfullyVerifiedOTP';
+  static const app_otpInvalid = 'app_otpInvalid';
+  static const app_pleaseEnterFullOTP = 'app_pleaseEnterFullOTP';
+  static const app_thisFieldCannotBeEmpty = 'app_thisFieldCannotBeEmpty';
+  static const app_confirmPasswordNotMatch = 'app_confirmPasswordNotMatch';
+  static const app_resetPasswordSuccess = 'app_resetPasswordSuccess';
+  static const app_resetPasswordFailed = 'app_resetPasswordFailed';
+  static const app_changePasswordSuccess = 'app_changePasswordSuccess';
+  static const app_changePasswordFailed = 'app_changePasswordFailed';
+  static const app_noResponseFromSystem = 'app_noResponseFromSystem';
+  static const app_loginSessionExpired = 'app_loginSessionExpired';
+  static const app_logInWrongAccountOrPassword =
+      'app_logInWrongAccountOrPassword';
+  static const app_logInWrongPassword = 'app_logInWrongPassword';
+  static const app_accountNotExist = 'app_accountNotExist';
   static const app_today = 'app_today';
   static const app_yesterday = 'app_yesterday';
   static const app_checkIn_success = 'app_checkIn_success';
@@ -282,24 +300,6 @@ class LocaleKeys {
   static const app_week3 = 'app_week3';
   static const app_week4 = 'app_week4';
   static const app_lesson = 'app_lesson';
-  static const app_emailNotFound = 'app_emailNotFound';
-  static const app_otpHaveSentToEmail = 'app_otpHaveSentToEmail';
-  static const app_failedToSentOTP = 'app_failedToSentOTP';
-  static const app_successfullyVerifiedOTP = 'app_successfullyVerifiedOTP';
-  static const app_otpInvalid = 'app_otpInvalid';
-  static const app_pleaseEnterFullOtp = 'app_pleaseEnterFullOtp';
-  static const app_thisFieldCannotBeEmpty = 'app_thisFieldCannotBeEmpty';
-  static const app_confirmPasswordNotMatch = 'app_confirmPasswordNotMatch';
-  static const app_resetPasswordSuccess = 'app_resetPasswordSuccess';
-  static const app_resetPasswordFailed = 'app_resetPasswordFailed';
-  static const app_changePasswordSuccess = 'app_changePasswordSuccess';
-  static const app_changePasswordFailed = 'app_changePasswordFailed';
-  static const app_noResponseFromSystem = 'app_noResponseFromSystem';
-  static const app_loginSessionExpired = 'app_loginSessionExpired';
-  static const app_logInWrongAccountOrPassword =
-      'app_logInWrongAccountOrPassword';
-  static const app_logInWrongPassword = 'app_logInWrongPassword';
-  static const app_accountNotExist = 'app_accountNotExist';
   static const dialog_close = 'dialog_close';
   static const dialog_errorConnectFailedStr = 'dialog_errorConnectFailedStr';
   static const dialog_errorConnectTimeOut = 'dialog_errorConnectTimeOut';
@@ -385,6 +385,8 @@ class LocaleKeys {
   static const login_username_isEmpty = 'login_username_isEmpty';
   static const login_taxCode_isEmpty = 'login_taxCode_isEmpty';
   static const login_taxCode_onlyDigits = 'login_taxCode_onlyDigits';
+  static const login_urlNotFound = 'login_urlNotFound';
+  static const login_invalidUrlCode = 'login_invalidUrlCode';
   static const util_text_selectDay = 'util_text_selectDay';
   static const util_text_close = 'util_text_close';
   static const util_text_confirm = 'util_text_confirm';
@@ -587,6 +589,50 @@ class LocaleKeys {
   static const home_task = 'home_task';
   static const home_notification = 'home_notification';
   static const home_menu = 'home_menu';
+  static const home_category = 'home_category';
+  static const home_edit = 'home_edit';
+  static const home_reset = 'home_reset';
+  static const home_delete = 'home_delete';
+  static const home_update = 'home_update';
+  static const home_no_data = 'home_no_data';
+  static const home_stock = 'home_stock';
+  static const home_list = 'home_list';
+  static const detail_add_image = 'detail_add_image';
+  static const detail_product_name = 'detail_product_name';
+  static const detail_product_code = 'detail_product_code';
+  static const detail_product_price = 'detail_product_price';
+  static const detail_product_price_hint = 'detail_product_price_hint';
+  static const detail_product_stock = 'detail_product_stock';
+  static const detail_product_description = 'detail_product_description';
+  static const detail_product_category = 'detail_product_category';
+  static const detail_select_category = 'detail_select_category';
+  static const detail_add_category = 'detail_add_category';
+  static const detail_add_category_title = 'detail_add_category_title';
+  static const detail_new_category_hint = 'detail_new_category_hint';
+  static const detail_fetch_category_fail = 'detail_fetch_category_fail';
+  static const detail_create_category_fail = 'detail_create_category_fail';
+  static const detail_delete_product_title = 'detail_delete_product_title';
+  static const detail_delete_product_confirm = 'detail_delete_product_confirm';
+  static const detail_delete_product_success = 'detail_delete_product_success';
+  static const detail_delete_product_fail = 'detail_delete_product_fail';
+  static const detail_image_uploading = 'detail_image_uploading';
+  static const detail_image_required = 'detail_image_required';
+  static const detail_validate_name_required = 'detail_validate_name_required';
+  static const detail_validate_name_min_length =
+      'detail_validate_name_min_length';
+  static const detail_validate_code_required = 'detail_validate_code_required';
+  static const detail_validate_code_min_length =
+      'detail_validate_code_min_length';
+  static const detail_validate_price_required =
+      'detail_validate_price_required';
+  static const detail_validate_price_invalid = 'detail_validate_price_invalid';
+  static const detail_validate_price_min = 'detail_validate_price_min';
+  static const detail_validate_stock_required =
+      'detail_validate_stock_required';
+  static const detail_validate_stock_invalid = 'detail_validate_stock_invalid';
+  static const detail_validate_stock_min = 'detail_validate_stock_min';
+  static const detail_validate_category_required =
+      'detail_validate_category_required';
   static const menu_logout = 'menu_logout';
   static const menu_titleLogout = 'menu_titleLogout';
   static const menu_contentLogout = 'menu_contentLogout';
@@ -632,9 +678,9 @@ class LocaleKeys {
   static const add_tasks_delete_task = 'add_tasks_delete_task';
   static const add_tasks_delete_success = 'add_tasks_delete_success';
   static const add_tasks_update_progress = 'add_tasks_update_progress';
-  static const add_tasks_create_task = 'add_tasks_create_task';
   static const add_tasks_create_task_success = 'add_tasks_create_task_success';
   static const add_tasks_create_task_failed = 'add_tasks_create_task_failed';
+  static const add_tasks_create_task = 'add_tasks_create_task';
   static const add_tasks_update_task = 'add_tasks_update_task';
   static const add_tasks_detail_task = 'add_tasks_detail_task';
   static const add_tasks_update_task_success = 'add_tasks_update_task_success';
@@ -793,9 +839,6 @@ class LocaleKeys {
   static const monthsAgo = 'monthsAgo';
   static const yearsAgo = 'yearsAgo';
   static const status = 'status';
-  static const app_pleaseEnterFullOTP = 'app_pleaseEnterFullOTP';
-  static const login_urlNotFound = 'login_urlNotFound';
-  static const login_invalidUrlCode = 'login_invalidUrlCode';
 }
 
 class Locales {
@@ -956,6 +999,23 @@ class Locales {
     'app_addFaceId': 'Add face',
     'app_attendanceHistory': 'Attendance history',
     'app_addFaceNew': 'Please add a new face',
+    'app_emailNotFound': 'Email not found in the system',
+    'app_otpHaveSentToEmail': 'An OTP has been sent to your email',
+    'app_failedToSentOTP': 'Failed to send OTP',
+    'app_successfullyVerifiedOTP': 'OTP verified successfully',
+    'app_otpInvalid': 'Invalid OTP',
+    'app_pleaseEnterFullOTP': 'Please enter the complete OTP',
+    'app_thisFieldCannotBeEmpty': 'This field cannot be empty',
+    'app_confirmPasswordNotMatch': 'Confirm password does not match',
+    'app_resetPasswordSuccess': 'Password reset successfully',
+    'app_resetPasswordFailed': 'Password reset failed',
+    'app_changePasswordSuccess': 'Password changed successfully',
+    'app_changePasswordFailed': 'Password change failed',
+    'app_noResponseFromSystem': 'No response from system, please try again',
+    'app_loginSessionExpired': 'Your session has expired. Please log in again',
+    'app_logInWrongAccountOrPassword': 'Log in wrong account or password',
+    'app_logInWrongPassword': 'Log in wrong password',
+    'app_accountNotExist': 'Account not exist',
     'app_today': 'Today',
     'app_yesterday': 'Yesterday',
     'app_checkIn_success': 'Check-in successful',
@@ -1082,23 +1142,6 @@ class Locales {
     'app_week3': 'Week 3',
     'app_week4': 'Week 4',
     'app_lesson': 'Lesson',
-    'app_emailNotFound': 'Email not found in the system',
-    'app_otpHaveSentToEmail': 'An OTP has been sent to your email',
-    'app_failedToSentOTP': 'Failed to send OTP',
-    'app_successfullyVerifiedOTP': 'OTP verified successfully',
-    'app_otpInvalid': 'Invalid OTP',
-    'app_pleaseEnterFullOtp': 'Please enter the complete OTP',
-    'app_thisFieldCannotBeEmpty': 'This field cannot be empty',
-    'app_confirmPasswordNotMatch': 'Confirm password does not match',
-    'app_resetPasswordSuccess': 'Password reset successfully',
-    'app_resetPasswordFailed': 'Password reset failed',
-    'app_changePasswordSuccess': 'Password changed successfully',
-    'app_changePasswordFailed': 'Password change failed',
-    'app_noResponseFromSystem': 'No response from system, please try again',
-    'app_loginSessionExpired': 'Your session has expired. Please log in again',
-    'app_logInWrongAccountOrPassword': 'Log in wrong account or password',
-    'app_logInWrongPassword': 'Log in wrong password',
-    'app_accountNotExist': 'Account not exist',
     'dialog_close': 'Close',
     'dialog_errorConnectFailedStr':
         'Cannot connect to the server.\nPlease check your network connection again.',
@@ -1195,6 +1238,8 @@ class Locales {
     'login_username_isEmpty': 'Username cannot be empty',
     'login_taxCode_isEmpty': 'Tax code cannot be empty',
     'login_taxCode_onlyDigits': 'Tax code must only contain digits',
+    'login_urlNotFound': 'URL not found',
+    'login_invalidUrlCode': 'Invalid URL code',
     'util_text_selectDay': 'Select day',
     'util_text_close': 'Close',
     'util_text_confirm': 'Confirm',
@@ -1355,6 +1400,45 @@ class Locales {
     'home_task': 'Task',
     'home_notification': 'Notification',
     'home_menu': 'Menu',
+    'home_category': 'Category',
+    'home_edit': 'Edit',
+    'home_reset': 'Reset',
+    'home_delete': 'Delete',
+    'home_update': 'Update',
+    'home_no_data': 'No data',
+    'home_stock': 'Stock: @stock',
+    'home_list': 'List',
+    'detail_add_image': 'Add image',
+    'detail_product_name': 'Product Name',
+    'detail_product_code': 'Product Code',
+    'detail_product_price': 'Product Price',
+    'detail_product_price_hint': 'Product Price (VND)',
+    'detail_product_stock': 'Product Quantity',
+    'detail_product_description': 'Description',
+    'detail_product_category': 'Product Category',
+    'detail_select_category': 'Select Category',
+    'detail_add_category': 'Add Category +',
+    'detail_add_category_title': 'Add Category',
+    'detail_new_category_hint': 'New Category',
+    'detail_fetch_category_fail': 'Fetch categories failed',
+    'detail_create_category_fail': 'Add category failed',
+    'detail_delete_product_title': 'Delete product',
+    'detail_delete_product_confirm': 'Do you want to delete this product?',
+    'detail_delete_product_success': 'Product deleted successfully',
+    'detail_delete_product_fail': 'Delete product failed',
+    'detail_image_uploading': 'Image is uploading',
+    'detail_image_required': 'Please select an image',
+    'detail_validate_name_required': 'Please enter product name',
+    'detail_validate_name_min_length': 'Name must be at least 3 characters',
+    'detail_validate_code_required': 'Please enter product code',
+    'detail_validate_code_min_length': 'Product code is too short',
+    'detail_validate_price_required': 'Please enter product price',
+    'detail_validate_price_invalid': 'Price must be a valid number',
+    'detail_validate_price_min': 'Price must be greater than 0',
+    'detail_validate_stock_required': 'Please enter stock quantity',
+    'detail_validate_stock_invalid': 'Stock must be an integer',
+    'detail_validate_stock_min': 'Stock cannot be negative',
+    'detail_validate_category_required': 'Please enter category',
     'menu_logout': 'Log out',
     'menu_titleLogout': 'Notification',
     'menu_contentLogout': 'Do you want to log out?',
@@ -1399,9 +1483,9 @@ class Locales {
     'add_tasks_delete_task': 'Delete task',
     'add_tasks_delete_success': 'Deleted successfully',
     'add_tasks_update_progress': 'Update progress',
-    'add_tasks_create_task': 'Create Task',
     'add_tasks_create_task_success': 'Task created successfully',
     'add_tasks_create_task_failed': 'Task creation failed',
+    'add_tasks_create_task': 'Create Task',
     'add_tasks_update_task': 'Update task',
     'add_tasks_detail_task': 'Task details',
     'add_tasks_update_task_success': 'Updated successfully',
@@ -1993,6 +2077,45 @@ class Locales {
     'home_task': 'Công việc',
     'home_notification': 'Thông báo',
     'home_menu': 'Menu',
+    'home_category': 'Danh mục',
+    'home_edit': 'Chỉnh sửa',
+    'home_reset': 'Thiết lập lại',
+    'home_delete': 'Xóa',
+    'home_update': 'Cập nhật',
+    'home_no_data': 'Không có dữ liệu',
+    'home_stock': 'Kho: @stock',
+    'home_list': 'Danh sách',
+    'detail_add_image': 'Thêm ảnh',
+    'detail_product_name': 'Tên sản phẩm',
+    'detail_product_code': 'Mã code sản phẩm',
+    'detail_product_price': 'Giá sản phẩm',
+    'detail_product_price_hint': 'Giá sản phẩm (VND)',
+    'detail_product_stock': 'Số lượng sản phẩm',
+    'detail_product_description': 'Mô tả',
+    'detail_product_category': 'Danh mục sản phẩm',
+    'detail_select_category': 'Chọn danh mục',
+    'detail_add_category': 'Thêm danh mục +',
+    'detail_add_category_title': 'Thêm Danh mục',
+    'detail_new_category_hint': 'Danh mục mới',
+    'detail_fetch_category_fail': 'Lấy danh mục không thành công',
+    'detail_create_category_fail': 'Thêm danh mục không thành công',
+    'detail_delete_product_title': 'Xóa sản phẩm',
+    'detail_delete_product_confirm': 'Bạn có muốn xóa không?',
+    'detail_delete_product_success': 'Xóa sản phẩm thành công',
+    'detail_delete_product_fail': 'Xóa sản phẩm không thành công',
+    'detail_image_uploading': 'Ảnh đang trong quá trình tải',
+    'detail_image_required': 'Vui lòng chọn ảnh',
+    'detail_validate_name_required': 'Vui lòng nhập tên sản phẩm',
+    'detail_validate_name_min_length': 'Tên phải có ít nhất 3 ký tự',
+    'detail_validate_code_required': 'Vui lòng nhập mã sản phẩm',
+    'detail_validate_code_min_length': 'Mã sản phẩm quá ngắn',
+    'detail_validate_price_required': 'Vui lòng nhập giá sản phẩm',
+    'detail_validate_price_invalid': 'Giá phải là số hợp lệ',
+    'detail_validate_price_min': 'Giá phải lớn hơn 0',
+    'detail_validate_stock_required': 'Vui lòng nhập số lượng',
+    'detail_validate_stock_invalid': 'Số lượng phải là số nguyên',
+    'detail_validate_stock_min': 'Số lượng không được âm',
+    'detail_validate_category_required': 'Vui lòng nhập danh mục',
     'menu_logout': 'Đăng xuất',
     'menu_titleLogout': 'Thông báo',
     'menu_contentLogout': 'Bạn có muốn đăng xuất không?',

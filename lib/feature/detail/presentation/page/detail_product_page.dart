@@ -26,7 +26,7 @@ class DetailProductPage extends BaseGetPage<DetailProductController> {
           controller.title,
           centerTitle: true,
           backButtonColor: AppColors.basicBlack,
-          textColor: AppColors.mainColors,
+          textColor: AppColors.basicBlack,
           funcLeading: controller.onBack,
         ),
         body: Obx(
